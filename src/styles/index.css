@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-surface-subtle text-slate-900 antialiased;
+  }
+}
+
+@layer components {
+  /* AG Grid theme variable overrides so the grid matches the Quincy
+     palette instead of shipping the default ag-theme-alpine look
+     unmodified. */
+  .ag-theme-quincy {
+    --ag-foreground-color: theme('colors.slate.800');
+    --ag-background-color: theme('colors.surface.DEFAULT');
+    --ag-header-background-color: theme('colors.surface.subtle');
+    --ag-border-color: theme('colors.slate.200');
+    --ag-row-hover-color: theme('colors.brand.50');
+  }
+}
