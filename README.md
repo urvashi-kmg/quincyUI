@@ -4,26 +4,26 @@ Insurance-domain front end. React 18 + TypeScript on Vite, feature-sliced archit
 
 ## Stack
 
-| Area | Choice |
-|---|---|
-| Framework | React 18 + TypeScript, Vite |
-| Routing | React Router v6, route-level code splitting via `lazy()` |
-| Styling | Tailwind CSS |
-| Icons | lucide-react |
-| Tables | AG Grid Community |
-| Charts | Recharts |
-| Server state | Redux Toolkit (RTK Query) |
+| Area                    | Choice                                                                                              |
+| ----------------------- | --------------------------------------------------------------------------------------------------- |
+| Framework               | React 18 + TypeScript, Vite                                                                         |
+| Routing                 | React Router v6, route-level code splitting via `lazy()`                                            |
+| Styling                 | Tailwind CSS                                                                                        |
+| Icons                   | lucide-react                                                                                        |
+| Tables                  | AG Grid Community                                                                                   |
+| Charts                  | Recharts                                                                                            |
+| Server state            | Redux Toolkit (RTK Query)                                                                           |
 | Client / local UI state | Redux Toolkit — a feature-namespaced slice even for local-only state (see `features/quotes/stores`) |
-| Cross-feature state | Redux Toolkit slices (e.g. `features/auth`) |
-| Forms | Formik + Yup |
-| HTTP | Axios, single instance with interceptors (`src/services/apiClient.ts`) |
-| Unit/integration tests | Vitest + React Testing Library + MSW |
-| Component tests | Playwright CT |
-| E2E tests | Playwright (route-level mocking) |
-| Lint/format | ESLint (flat config, strict TS, a11y) + Prettier |
-| Git hooks | Husky + lint-staged |
-| CI/CD | GitHub Actions |
-| Monitoring | Sentry (errors/perf) + Monocart/JUnit reporters for test results |
+| Cross-feature state     | Redux Toolkit slices (e.g. `features/auth`)                                                         |
+| Forms                   | Formik + Yup                                                                                        |
+| HTTP                    | Axios, single instance with interceptors (`src/services/apiClient.ts`)                              |
+| Unit/integration tests  | Vitest + React Testing Library + MSW                                                                |
+| Component tests         | Playwright CT                                                                                       |
+| E2E tests               | Playwright (route-level mocking)                                                                    |
+| Lint/format             | ESLint (flat config, strict TS, a11y) + Prettier                                                    |
+| Git hooks               | Husky + lint-staged                                                                                 |
+| CI/CD                   | GitHub Actions                                                                                      |
+| Monitoring              | Sentry (errors/perf) + Monocart/JUnit reporters for test results                                    |
 
 ## Getting started
 
@@ -110,10 +110,3 @@ npm run format            # prettier --write
   something else, swap it there.
 - **Auth token storage** currently uses `sessionStorage`; confirm this
   matches your security review (vs. httpOnly cookies issued by the gateway).
-- **No dark/light mode.** The `ThemeProvider` and the `dark:` variant classes
-  have been removed; `tailwind.config.ts` no longer sets `darkMode`. The
-  `brand` / `signal` / `surface` color tokens in `tailwind.config.ts` are
-  still there as a starting palette — replace them with your own design
-  system's values (or add the same keys with your own hex codes) and every
-  component that references `bg-brand-700`, `text-signal-red`, etc. will
-  pick up the new colors automatically.

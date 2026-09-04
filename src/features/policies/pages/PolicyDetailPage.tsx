@@ -4,9 +4,14 @@ import { useGetPolicyByIdQuery } from '../services/policiesApi';
 
 export default function PolicyDetailPage() {
   const { policyId } = useParams<{ policyId: string }>();
-  const { data: policy, isLoading } = useGetPolicyByIdQuery(policyId ?? '', { skip: !policyId });
+  const {
+    data: policy,
+    isLoading,
+    isError,
+  } = useGetPolicyByIdQuery(policyId ?? '', { skip: !policyId });
 
   if (isLoading) return <p className="text-slate-500">Loading…</p>;
+  if (isError) return <p className="text-signal-red">Failed to load policy. Please try again.</p>;
   if (!policy) return <p className="text-slate-500">Policy not found.</p>;
 
   return (

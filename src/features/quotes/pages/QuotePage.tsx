@@ -1,9 +1,9 @@
+import { Button } from '@components/ui';
+import { formatCurrency } from '@utils/formatters';
 import { AllCommunityModule, ModuleRegistry, type ColDef } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-
-import { Button } from '@components/ui';
 
 import { useGetQuotesQuery } from '../services/quotesApi';
 import type { Quote } from '../types';
@@ -23,8 +23,7 @@ export default function QuotePage() {
         field: 'premium',
         headerName: 'Premium',
         flex: 1,
-        valueFormatter: ({ value }) =>
-          typeof value === 'number' ? value.toLocaleString('en-US', { style: 'currency', currency: 'USD' }) : '',
+        valueFormatter: ({ value }) => (typeof value === 'number' ? formatCurrency(value) : ''),
       },
       { field: 'status', headerName: 'Status', flex: 1 },
     ],

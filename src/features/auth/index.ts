@@ -4,5 +4,5 @@
 // (enforced by the ESLint `no-restricted-imports` rule).
 export { useAuth } from './hooks/useAuth';
 export { RequireAuth } from './components/RequireAuth';
-export { authReducer, restoreSession } from './stores/authSlice';
+export { authReducer, restoreSession, sessionExpired } from './stores/authSlice';
 export type { User, Credentials, AuthState } from './types';

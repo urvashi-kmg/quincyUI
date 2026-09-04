@@ -15,7 +15,16 @@ const PREMIUM_BREAKDOWN = [
 
 export default function QuoteReviewPage() {
   const { quoteId } = useParams<{ quoteId: string }>();
-  const { data: quote } = useGetQuoteByIdQuery(quoteId ?? '', { skip: !quoteId || quoteId === 'new' });
+  const isNewQuote = !quoteId || quoteId === 'new';
+  const {
+    data: quote,
+    isLoading,
+    isError,
+  } = useGetQuoteByIdQuery(quoteId ?? '', { skip: isNewQuote });
+
+  if (isLoading) return <p className="text-slate-500">Loading…</p>;
+  if (isError) return <p className="text-signal-red">Failed to load quote. Please try again.</p>;
+  if (!isNewQuote && !quote) return <p className="text-slate-500">Quote not found.</p>;
 
   return (
     <div className="flex flex-col gap-6">

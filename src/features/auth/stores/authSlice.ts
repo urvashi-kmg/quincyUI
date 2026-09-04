@@ -34,6 +34,13 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.isAuthenticated = true;
     },
+    // Dispatched when apiClient's response interceptor sees a 401 on an
+    // already-authenticated session (token expired/revoked server-side).
+    sessionExpired: (state) => {
+      sessionStorage.removeItem('quincy-access-token');
+      state.user = null;
+      state.isAuthenticated = false;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -55,10 +62,11 @@ const authSlice = createSlice({
         state.isInitializing = false;
       })
       .addCase(restoreSession.rejected, (state) => {
+        sessionStorage.removeItem('quincy-access-token');
         state.isInitializing = false;
       });
   },
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, sessionExpired } = authSlice.actions;
 export const authReducer = authSlice.reducer;

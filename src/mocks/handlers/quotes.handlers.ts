@@ -29,4 +29,18 @@ export const quotesHandlers = [
     const quote = mockQuotes.find((q) => q.id === params.id);
     return quote ? HttpResponse.json(quote) : new HttpResponse(null, { status: 404 });
   }),
+  http.post('*/POC13/QuincyGateway/quotes', async ({ request }) => {
+    const body = (await request.json()) as Partial<Quote>;
+    const quote: Quote = {
+      id: `q${mockQuotes.length + 1}`,
+      quoteNumber: `Q-${100236 + mockQuotes.length}`,
+      applicantName: body.applicantName ?? '',
+      productLine: body.productLine ?? 'auto',
+      premium: body.premium ?? 0,
+      status: 'draft',
+      createdAt: new Date().toISOString(),
+    };
+    mockQuotes.push(quote);
+    return HttpResponse.json(quote, { status: 201 });
+  }),
 ];
