@@ -1,8 +1,8 @@
 # Deployment notes
 
-Quincy-UI builds to a static bundle (`npm run build` → `dist/`) served behind a CDN/reverse proxy
-that owns the security headers below. The app itself sets no headers — configure these at the
-hosting layer (e.g. CloudFront/Nginx/Cloud CDN config referenced here).
+Quincy-UI builds to a static bundle (`npm run build` -> `dist/`) served behind a CDN/reverse proxy
+that owns the security headers below. The app itself sets no headers - configure these at the
+hosting layer.
 
 ## Required response headers
 
@@ -15,11 +15,11 @@ hosting layer (e.g. CloudFront/Nginx/Cloud CDN config referenced here).
 
 ## Environments
 
-| Env | `VITE_APP_ENV` | Notes |
-|---|---|---|
-| Local | `development` | `npm run dev`, mocked APIs via MSW where the backend isn't reachable |
-| Preview (PR) | `preview` | Built in CI, deployed per-PR, Sentry environment tagged |
-| Production | `production` | `npm run build`, immutable asset hashing, Sentry release tagged from CI |
+| Env          | `VITE_APP_ENV` | Notes                                                                   |
+| ------------ | -------------- | ----------------------------------------------------------------------- |
+| Local        | `development`  | `npm run dev`, mocked APIs via MSW where the backend isn't reachable    |
+| Preview (PR) | `preview`      | Built in CI, deployed per-PR, Sentry environment tagged                 |
+| Production   | `production`   | `npm run build`, immutable asset hashing, Sentry release tagged from CI |
 
 ## Config
 
