@@ -20,14 +20,21 @@ export default function AiAssistantPage() {
         description="Ask about quote and policy workflows."
       />
 
+      {/* Amber warning banner: the spec has no "warning" semantic color, so
+       * this stays on Tailwind's stock amber palette, out of scope — see the
+       * token migration report's "no spec equivalent" list. Only its type
+       * size is migrated to the new scale. */}
       <p
-        className="mb-4 rounded-card border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900"
+        className="mb-4 rounded-card border border-amber-300 bg-amber-50 p-3 text-small text-amber-900"
         role="note"
       >
         {PII_WARNING}
       </p>
 
-      <label htmlFor="assistant-draft" className="mb-1 block text-sm font-medium">
+      <label
+        htmlFor="assistant-draft"
+        className="mb-1 block text-body font-medium text-ink-primary"
+      >
         Message
       </label>
       <textarea
@@ -37,10 +44,8 @@ export default function AiAssistantPage() {
         rows={5}
         aria-describedby="assistant-draft-budget"
         aria-invalid={isOverLimit}
-        className={`w-full rounded-card border px-3 py-2 text-sm outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${
-          isOverLimit
-            ? 'border-red-500 focus-visible:outline-red-500'
-            : 'border-border-light focus-visible:outline-brand-500'
+        className={`w-full rounded-lg border px-3 py-4 text-body text-ink-primary outline-none transition-colors focus:border-brand-purple ${
+          isOverLimit ? 'border-line-error bg-fill-error' : 'border-line-field'
         }`}
       />
 
@@ -48,7 +53,7 @@ export default function AiAssistantPage() {
         <p
           id="assistant-draft-budget"
           role={isOverLimit ? 'alert' : undefined}
-          className={`text-xs ${isOverLimit ? 'text-red-600' : 'text-slate-500'}`}
+          className={`text-caption ${isOverLimit ? 'text-ink-error' : 'text-ink-secondary'}`}
         >
           {isOverLimit
             ? `${Math.abs(remaining)} characters over the ${MAX_MESSAGE_LENGTH} limit`

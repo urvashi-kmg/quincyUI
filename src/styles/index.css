@@ -2,6 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Self-hosted Inter (variable font, latin subset only — see public/fonts).
+ * Declared under both family names used by tailwind.config.js's font-sans
+ * fallback stack ("Inter" is now the only one actually referenced there).
+ * A single variable-font file serves every weight; Google Fonts' own served
+ * CSS uses one @font-face per discrete weight pointing at the same resource
+ * rather than a `font-weight: 400 700` range, so that's replicated here.
+ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/inter-var-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/inter-var-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/inter-var-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('/fonts/inter-var-latin.woff2') format('woff2');
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light;
 }
@@ -10,11 +59,18 @@
   html {
     @apply antialiased;
   }
+  /* Root text (Typography.pdf "Root Text"): 16px/1.5, weight 500, color 1C1B1F. */
   body {
-    @apply bg-surface-light text-slate-900;
+    @apply bg-page text-ink-primary text-body font-medium;
   }
-  /* Visible focus everywhere — see .claude/rules/accessibility.md */
+  /*
+   * Visible focus everywhere — see .claude/rules/accessibility.md. Every
+   * explicit focus state in Buttons.pdf uses purple (#7B209E), so it's used
+   * here as the app-wide default for anything without its own
+   * component-level focus spec (approved as a proposal, not given directly
+   * by the spec — see the token migration report).
+   */
   :focus-visible {
-    @apply outline outline-2 outline-offset-2 outline-brand-500;
+    @apply outline outline-2 outline-offset-2 outline-brand-purple;
   }
 }

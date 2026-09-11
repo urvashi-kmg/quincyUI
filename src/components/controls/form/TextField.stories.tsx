@@ -4,7 +4,7 @@ import * as Yup from 'yup';
 import { TextField } from './TextField';
 
 const meta: Meta<typeof TextField> = {
-  title: 'Forms/TextField',
+  title: 'Design System/Form Fields/Input',
   component: TextField,
   parameters: { layout: 'centered' },
   decorators: [
@@ -29,6 +29,33 @@ type Story = StoryObj<typeof TextField>;
 
 export const Default: Story = {
   args: { name: 'applicantName', label: 'Applicant name', helpText: 'As it appears on the policy' },
+};
+
+export const WithValue: Story = {
+  decorators: [
+    (Story) => (
+      <Formik initialValues={{ applicantName: 'Jordan Lee' }} onSubmit={() => {}}>
+        <Form className="w-72">
+          <Story />
+        </Form>
+      </Formik>
+    ),
+  ],
+  args: { name: 'applicantName', label: 'Applicant name' },
+};
+
+export const Disabled: Story = {
+  args: { name: 'applicantName', label: 'Applicant name', disabled: true },
+};
+
+export const Success: Story = {
+  args: {
+    name: 'applicantName',
+    label: 'Applicant name',
+    isSuccess: true,
+    helpText:
+      'No green color token exists anywhere in the spec — this state has no visual treatment yet, see the token migration report.',
+  },
 };
 
 export const WithError: Story = {

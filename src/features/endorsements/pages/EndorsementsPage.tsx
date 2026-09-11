@@ -7,8 +7,10 @@
 export default function EndorsementsPage() {
   return (
     <div>
-      <h1 className="mb-2 text-xl font-semibold">Endorsements</h1>
-      <p className="text-sm text-slate-500">This feature is scaffolded but not yet implemented.</p>
+      <h1 className="mb-2 text-heading-2 font-semibold">Endorsements</h1>
+      <p className="text-small text-ink-secondary">
+        This feature is scaffolded but not yet implemented.
+      </p>
     </div>
   );
 }

@@ -26,9 +26,9 @@ export function AppShell() {
     <div className="flex h-screen">
       <nav
         aria-label="Primary"
-        className="flex w-56 shrink-0 flex-col border-r border-border-light bg-muted-light p-4"
+        className="flex w-56 shrink-0 flex-col border-r border-line-decorative bg-white p-4"
       >
-        <span className="mb-6 px-2 text-lg font-semibold text-brand-600">Quincy</span>
+        <span className="mb-6 px-2 text-heading-2 font-semibold text-brand-purple">Quincy</span>
         <ul className="flex flex-1 flex-col gap-1">
           {navItems.map(({ to, label, icon: Icon, end }) => (
             <li key={to}>
@@ -36,8 +36,12 @@ export function AppShell() {
                 to={to}
                 end={end}
                 className={({ isActive }) =>
-                  `flex items-center gap-2 rounded-card px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive ? 'bg-brand-500 text-white' : 'text-slate-600 hover:bg-brand-50'
+                  `flex items-center gap-2 rounded-card px-3 py-2 text-small font-medium transition-colors ${
+                    // No light purple/pink tint token exists in the spec for a
+                    // subtle hover surface — bg-page (the plain page
+                    // background) is used as a neutral substitute. See the
+                    // token migration report's "no spec equivalent" list.
+                    isActive ? 'bg-brand-purple text-white' : 'text-ink-secondary hover:bg-page'
                   }`
                 }
               >
@@ -50,7 +54,7 @@ export function AppShell() {
       </nav>
 
       <div className="flex flex-1 flex-col overflow-hidden">
-        <header className="flex h-14 shrink-0 items-center justify-end gap-2 border-b border-border-light px-6">
+        <header className="flex h-14 shrink-0 items-center justify-end gap-2 border-b border-line-decorative bg-white px-6">
           <NotificationBell onClick={() => {}} />
         </header>
         <main className="flex-1 overflow-auto p-8">

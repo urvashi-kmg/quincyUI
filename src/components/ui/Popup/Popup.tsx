@@ -42,14 +42,14 @@ export function Popup({ isOpen, onClose, title, children }: PopupProps) {
         className="w-full max-w-md rounded-card bg-white p-6 shadow-xl outline-none"
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 id="popup-title" className="text-lg font-semibold">
+          <h2 id="popup-title" className="text-heading-1 font-semibold">
             {title}
           </h2>
           <button
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="rounded-card p-1 text-slate-500 hover:bg-muted-light"
+            className="rounded-card p-1 text-ink-secondary hover:bg-muted-light"
           >
             <X size={18} aria-hidden="true" />
           </button>

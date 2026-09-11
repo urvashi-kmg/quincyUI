@@ -49,20 +49,22 @@ export function PremiumTrendChart({ data }: PremiumTrendChartProps) {
 
   if (data.length === 0) {
     return (
-      <p className="text-sm text-slate-500">No premium history for the selected period yet.</p>
+      <p className="text-small text-ink-secondary">
+        No premium history for the selected period yet.
+      </p>
     );
   }
 
   return (
     <figure className="m-0">
-      <figcaption className="mb-2 text-sm font-medium text-slate-700">
+      <figcaption className="mb-2 text-small font-medium text-ink-primary">
         Premium written by month
       </figcaption>
 
       <div className="h-72 w-full" aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-border-light" />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-line-decorative" />
             <XAxis dataKey="label" tick={{ fontSize: 12 }} />
             <YAxis
               tick={{ fontSize: 12 }}

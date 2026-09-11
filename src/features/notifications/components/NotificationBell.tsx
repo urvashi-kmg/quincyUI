@@ -21,7 +21,7 @@ export function NotificationBell({ onClick }: NotificationBellProps) {
       type="button"
       onClick={onClick}
       aria-label={label}
-      className="relative rounded-card p-2 text-slate-600 hover:bg-muted-light"
+      className="relative rounded-card p-2 text-ink-secondary hover:bg-muted-light"
     >
       <Bell size={18} aria-hidden="true" />
       {unreadCount > 0 && (

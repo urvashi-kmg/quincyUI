@@ -18,7 +18,7 @@ function RouteFallback() {
   return (
     <div
       role="status"
-      className="flex h-full items-center justify-center p-8 text-sm text-slate-500"
+      className="flex h-full items-center justify-center p-8 text-small text-ink-secondary"
     >
       Loading…
     </div>
@@ -32,8 +32,8 @@ function lazyRoute(element: ReactNode) {
 function NotFoundPage() {
   return (
     <div>
-      <h1 className="mb-2 text-xl font-semibold">Page not found</h1>
-      <p className="text-sm text-slate-500">
+      <h1 className="mb-2 text-heading-2 font-semibold">Page not found</h1>
+      <p className="text-small text-ink-secondary">
         Check the address, or pick a section from the navigation.
       </p>
     </div>

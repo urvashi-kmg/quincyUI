@@ -19,19 +19,19 @@ export default function DashboardPage() {
   }, [status, dispatch]);
 
   if (status === 'loading' || status === 'idle') {
-    return <p className="text-sm text-slate-500">Loading dashboard…</p>;
+    return <p className="text-small text-ink-secondary">Loading dashboard…</p>;
   }
 
   if (status === 'failed') {
     return (
-      <p role="alert" className="text-sm text-red-600">
+      <p role="alert" className="text-small text-ink-error">
         Couldn&apos;t load the dashboard: {error}
       </p>
     );
   }
 
   if (!data) {
-    return <p className="text-sm text-slate-500">No dashboard data yet.</p>;
+    return <p className="text-small text-ink-secondary">No dashboard data yet.</p>;
   }
 
   const cards = [
@@ -43,18 +43,18 @@ export default function DashboardPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-xl font-semibold">Dashboard</h1>
+      <h1 className="mb-6 text-heading-2 font-semibold">Dashboard</h1>
 
       <dl className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {cards.map((card) => (
-          <div key={card.label} className="rounded-card border border-border-light bg-white p-4">
-            <dt className="text-sm text-slate-500">{card.label}</dt>
-            <dd className="mt-1 text-2xl font-semibold">{card.value}</dd>
+          <div key={card.label} className="rounded-card border border-line-decorative bg-white p-4">
+            <dt className="text-small text-ink-secondary">{card.label}</dt>
+            <dd className="mt-1 text-heading-3 font-semibold">{card.value}</dd>
           </div>
         ))}
       </dl>
 
-      <section className="max-w-3xl rounded-card border border-border-light bg-white p-4">
+      <section className="max-w-3xl rounded-card border border-line-decorative bg-white p-4">
         <PremiumTrendChart data={data.premiumTrend} />
       </section>
     </div>

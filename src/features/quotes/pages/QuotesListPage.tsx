@@ -49,7 +49,7 @@ export default function QuotesListPage() {
 
   if (status === 'failed') {
     return (
-      <p role="alert" className="text-sm text-red-600">
+      <p role="alert" className="text-small text-ink-error">
         Couldn&apos;t load quotes: {error}
       </p>
     );
@@ -57,7 +57,7 @@ export default function QuotesListPage() {
 
   return (
     <div>
-      <h1 className="mb-6 text-xl font-semibold">Quotes</h1>
+      <h1 className="mb-6 text-heading-2 font-semibold">Quotes</h1>
       <DataGrid<Quote>
         rowData={rowData}
         columnDefs={columnDefs}
