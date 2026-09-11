@@ -28,7 +28,15 @@ const sizeClasses: Record<ButtonSize, string> = {
  * See .claude/rules/components.md and .claude/skills/storybook-design-system.
  */
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button(
-  { variant = 'primary', size = 'md', isLoading = false, disabled, className = '', children, ...rest },
+  {
+    variant = 'primary',
+    size = 'md',
+    isLoading = false,
+    disabled,
+    className = '',
+    children,
+    ...rest
+  },
   ref,
 ) {
   return (
@@ -38,7 +46,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(function Button
       className={`inline-flex items-center justify-center gap-2 rounded-card font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-60 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
       {...rest}
     >
-      {isLoading && <Loader2 className="animate-spin motion-reduce:animate-none" size={16} aria-hidden="true" />}
+      {isLoading && (
+        <Loader2 className="animate-spin motion-reduce:animate-none" size={16} aria-hidden="true" />
+      )}
       {children}
     </button>
   );

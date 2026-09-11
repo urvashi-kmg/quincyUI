@@ -14,9 +14,7 @@ export function NotificationBell({ onClick }: NotificationBellProps) {
   const unreadCount = useAppSelector(selectUnreadCount);
 
   const label =
-    unreadCount === 0
-      ? 'Notifications, none unread'
-      : `Notifications, ${unreadCount} unread`;
+    unreadCount === 0 ? 'Notifications, none unread' : `Notifications, ${unreadCount} unread`;
 
   return (
     <button

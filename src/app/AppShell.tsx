@@ -28,9 +28,7 @@ export function AppShell() {
         aria-label="Primary"
         className="flex w-56 shrink-0 flex-col border-r border-border-light bg-muted-light p-4"
       >
-        <span className="mb-6 px-2 text-lg font-semibold text-brand-600">
-          Quincy
-        </span>
+        <span className="mb-6 px-2 text-lg font-semibold text-brand-600">Quincy</span>
         <ul className="flex flex-1 flex-col gap-1">
           {navItems.map(({ to, label, icon: Icon, end }) => (
             <li key={to}>
@@ -39,9 +37,7 @@ export function AppShell() {
                 end={end}
                 className={({ isActive }) =>
                   `flex items-center gap-2 rounded-card px-3 py-2 text-sm font-medium transition-colors ${
-                    isActive
-                      ? 'bg-brand-500 text-white'
-                      : 'text-slate-600 hover:bg-brand-50'
+                    isActive ? 'bg-brand-500 text-white' : 'text-slate-600 hover:bg-brand-50'
                   }`
                 }
               >

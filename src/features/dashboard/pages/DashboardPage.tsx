@@ -47,10 +47,7 @@ export default function DashboardPage() {
 
       <dl className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
         {cards.map((card) => (
-          <div
-            key={card.label}
-            className="rounded-card border border-border-light bg-white p-4"
-          >
+          <div key={card.label} className="rounded-card border border-border-light bg-white p-4">
             <dt className="text-sm text-slate-500">{card.label}</dt>
             <dd className="mt-1 text-2xl font-semibold">{card.value}</dd>
           </div>
