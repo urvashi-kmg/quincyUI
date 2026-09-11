@@ -49,7 +49,7 @@ export default function DashboardPage() {
         {cards.map((card) => (
           <div
             key={card.label}
-            className="rounded-card border border-border-light bg-white p-4 dark:border-border-dark dark:bg-muted-dark"
+            className="rounded-card border border-border-light bg-white p-4"
           >
             <dt className="text-sm text-slate-500">{card.label}</dt>
             <dd className="mt-1 text-2xl font-semibold">{card.value}</dd>
@@ -57,7 +57,7 @@ export default function DashboardPage() {
         ))}
       </dl>
 
-      <section className="max-w-3xl rounded-card border border-border-light bg-white p-4 dark:border-border-dark dark:bg-muted-dark">
+      <section className="max-w-3xl rounded-card border border-border-light bg-white p-4">
         <PremiumTrendChart data={data.premiumTrend} />
       </section>
     </div>

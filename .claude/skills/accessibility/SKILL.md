@@ -15,8 +15,7 @@ Make Quincy-UI operable and understandable for keyboard and assistive-technology
 - Preserve keyboard navigation and visible focus for every interactive element.
 - Never use color as the only signal — status chips, chart series (Recharts), and form validation
   need a text or icon companion.
-- Check contrast (4.5:1 for normal text) against the token backgrounds in both light and dark
-  theme.
+- Check contrast (4.5:1 for normal text) against the token backgrounds.
 - Form fields use a real `<label>` associated via Formik + `htmlFor`/`id`; validation errors are
   linked via `aria-describedby` and announced.
 - Test meaningful states with the Storybook a11y addon and, for interactive components,

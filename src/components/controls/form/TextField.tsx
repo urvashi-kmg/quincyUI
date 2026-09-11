@@ -20,7 +20,7 @@ export function TextField({ name, label, helpText, id, ...rest }: TextFieldProps
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={inputId} className="text-sm font-medium text-slate-700 dark:text-slate-200">
+      <label htmlFor={inputId} className="text-sm font-medium text-slate-700">
         {label}
       </label>
       <input
@@ -29,10 +29,10 @@ export function TextField({ name, label, helpText, id, ...rest }: TextFieldProps
         {...rest}
         aria-invalid={hasError}
         aria-describedby={hasError ? errorId : helpText ? helpId : undefined}
-        className={`h-10 rounded-card border px-3 text-sm outline-none focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-muted-dark dark:text-slate-100 ${
+        className={`h-10 rounded-card border px-3 text-sm outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${
           hasError
             ? 'border-red-500 focus-visible:outline-red-500'
-            : 'border-border-light focus-visible:outline-brand-500 dark:border-border-dark'
+            : 'border-border-light focus-visible:outline-brand-500'
         }`}
       />
       {helpText && !hasError && (

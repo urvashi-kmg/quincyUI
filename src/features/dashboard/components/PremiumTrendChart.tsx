@@ -55,14 +55,14 @@ export function PremiumTrendChart({ data }: PremiumTrendChartProps) {
 
   return (
     <figure className="m-0">
-      <figcaption className="mb-2 text-sm font-medium text-slate-700 dark:text-slate-200">
+      <figcaption className="mb-2 text-sm font-medium text-slate-700">
         Premium written by month
       </figcaption>
 
       <div className="h-72 w-full" aria-hidden="true">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 8, right: 16, bottom: 8, left: 8 }}>
-            <CartesianGrid strokeDasharray="3 3" className="stroke-border-light dark:stroke-border-dark" />
+            <CartesianGrid strokeDasharray="3 3" className="stroke-border-light" />
             <XAxis dataKey="label" tick={{ fontSize: 12 }} />
             <YAxis
               tick={{ fontSize: 12 }}

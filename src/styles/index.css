@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: light dark;
+  color-scheme: light;
 }
 
 @layer base {
@@ -11,7 +11,7 @@
     @apply antialiased;
   }
   body {
-    @apply bg-surface-light text-slate-900 dark:bg-surface-dark dark:text-slate-100;
+    @apply bg-surface-light text-slate-900;
   }
   /* Visible focus everywhere — see .claude/rules/accessibility.md */
   :focus-visible {

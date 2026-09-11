@@ -19,7 +19,7 @@ export const Interactive: Story = {
       <>
         <Button onClick={() => setIsOpen(true)}>Open popup</Button>
         <Popup isOpen={isOpen} onClose={() => setIsOpen(false)} title="Confirm action">
-          <p className="text-sm text-slate-600 dark:text-slate-300">
+          <p className="text-sm text-slate-600">
             This is an example popup body. Press Escape or the close button to dismiss it.
           </p>
         </Popup>

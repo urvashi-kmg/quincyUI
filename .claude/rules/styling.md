@@ -10,8 +10,7 @@
 - Use the token layer in `tailwind.config.js` (`colors.brand`, `colors.surface`, `colors.muted`,
   `colors.border`, `fontFamily`) instead of raw hex values or default Tailwind palette classes for
   anything brand-visible. Ask before adding a new token — see constants.md.
-- Dark mode uses Tailwind's `class` strategy. Any new component must be visually checked in both
-  `light` and `dark` (toggle via `useTheme`, see `src/hooks/useTheme.ts`) before it's done.
+- The application supports a single fixed light theme — there is no dark mode or theme switching.
 - Respect `prefers-reduced-motion` for non-essential animation (`motion-safe:`/`motion-reduce:`
   variants).
 - Visible focus styles are required on every interactive element — do not remove Tailwind's

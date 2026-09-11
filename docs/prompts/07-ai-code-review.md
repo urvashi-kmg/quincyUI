@@ -51,7 +51,7 @@ You MUST:
 - keep types explicit; no `any`
 - preserve existing public contracts unless the task requires a change
 - never expose secrets or PII
-- keep accessibility and dark-mode behavior in scope
+- keep accessibility behavior in scope
 
 For a potentially reusable new shared constant/token/dependency, STOP and ask for approval first.
 

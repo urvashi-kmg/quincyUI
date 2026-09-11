@@ -7,8 +7,7 @@
   custom components in `src/components/ui` (Popup, DataGrid cell editors, custom Formik controls).
 - Color is never the only signal (status chips, chart series, form errors need a text/icon
   companion).
-- Contrast must meet 4.5:1 for normal text against the token backgrounds in both light and dark
-  theme.
+- Contrast must meet 4.5:1 for normal text against the token backgrounds.
 - Forms: every input has a associated `<label>` (via Formik field + `htmlFor`/`id`), and
   validation errors are associated to the field (`aria-describedby`) and announced.
 - AG Grid and Recharts: verify keyboard navigation and screen-reader-reachable summaries where the

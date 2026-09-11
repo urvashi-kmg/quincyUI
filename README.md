@@ -52,7 +52,6 @@ npm run test:e2e             # Playwright E2E (builds + previews the app first)
 - `src/components/ui` — `Button`, `Popup`, `DataGrid`; `src/components/layout/PageHeader`;
   `src/components/controls/form/TextField` (Formik + Yup with accessible error association). Each
   has a Storybook story and a Vitest + `jest-axe` test.
-- `src/features/settings` — Appearance section implemented as a radio group wired to `useTheme`.
 - `src/features/ai-assistant` — composer with a length budget and a standing PII warning. Sending
   is deliberately unwired; see the note in the page.
 - Tests at all three layers: Vitest (+ MSW, with `onUnhandledRequest: 'error'`), Playwright CT,

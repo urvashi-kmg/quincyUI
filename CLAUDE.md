@@ -30,7 +30,7 @@ touched.
 | Package manager | npm (commit `package-lock.json`) |
 | CI/CD | GitHub Actions (`.github/workflows/ci.yml`) |
 | Monitoring | Sentry (runtime errors) + Monocart reporter (Playwright test reporting) |
-| Theming | Tailwind `darkMode: 'class'` + custom token layer in `tailwind.config.js` |
+| Theming | Single fixed light theme — custom token layer in `tailwind.config.js` |
 
 ## Rule Zero — stop and ask, don't assume
 
@@ -110,11 +110,11 @@ touched.
 | `src/features/<name>` | One folder per business feature (dashboard, quotes, policies, endorsements, renewals, notifications, settings, ai-assistant). Each may have its own `components/`, `pages/`, `services/`, `stores/`, `hooks/`, `types/`, `utils/`, `constants/`, `steps/`. Features may import shared layers but should not import from sibling features' internals — share via `src/components`, `src/services`, `src/redux`, or `src/types` instead. |
 | `src/redux` | Store setup (`store.ts`), root reducer composition, typed hooks (`useAppDispatch`/`useAppSelector`). Feature reducers live in `src/features/<name>/stores/` and are registered here. |
 | `src/services` | Axios instance + all HTTP calls, grouped by domain. Only place allowed to import `axios`. |
-| `src/hooks` | Cross-feature reusable hooks (`useTheme`, `useMediaQuery`, `useDebounce`). |
+| `src/hooks` | Cross-feature reusable hooks (`useMediaQuery`, `useDebounce`). |
 | `src/lib` | Thin wrappers around third-party SDKs (Sentry init, Axios instance factory). |
 | `src/utils` | Small pure functions. Not a dumping ground for business logic. |
 | `src/types` | Shared TypeScript types/interfaces used across features. |
-| `src/styles` | Tailwind entrypoint (`index.css`), global CSS variables, theme tokens. |
+| `src/styles` | Tailwind entrypoint (`index.css`), global CSS variables, design tokens. |
 
 ## Shared constants & design tokens
 
@@ -141,8 +141,7 @@ touched.
 - No inline `style` attributes.
 - Use the token layer in `tailwind.config.js` (`brand`, `surface`, `muted`, `border`) rather than
   raw hex values or default Tailwind palette classes for anything brand-visible.
-- Dark mode is `class`-based (`useTheme` toggles `document.documentElement.classList`). Every new
-  component must be checked in both themes.
+- The application supports a single fixed light theme — there is no dark mode or theme switching.
 
 ## Testing policy
 

@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: 'class', // toggled via <html class="dark">, see src/hooks/useTheme.ts
   content: ['./index.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
@@ -22,15 +21,12 @@ export default {
         },
         surface: {
           light: '#ffffff',
-          dark: '#0f1420',
         },
         muted: {
           light: '#f4f6fb',
-          dark: '#161c2c',
         },
         border: {
           light: '#e2e5ec',
-          dark: '#242c40',
         },
       },
       fontFamily: {

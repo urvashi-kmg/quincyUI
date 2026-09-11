@@ -13,8 +13,8 @@ components worth reusing.
 - Reuse existing `src/components/ui` components and Tailwind tokens (`tailwind.config.js`) before
   creating new ones.
 - Add or update a `.stories.tsx` file alongside any new/changed reusable component.
-- Cover meaningful states per story: default, variants, disabled, loading, empty, error, long
-  content, and — for anything visual — both light and dark theme.
+- Cover meaningful states per story: default, variants, disabled, loading, empty, error, and long
+  content.
 - Keep stories deterministic: mock data/services at the story boundary (args, decorators), never
   call live services or real Axios from a story.
 - Use `@storybook/test` interaction tests for important behavior (form submission, Popup

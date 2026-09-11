@@ -21,7 +21,7 @@ export default function AiAssistantPage() {
       />
 
       <p
-        className="mb-4 rounded-card border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900 dark:border-amber-700 dark:bg-amber-950/40 dark:text-amber-100"
+        className="mb-4 rounded-card border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900"
         role="note"
       >
         {PII_WARNING}
@@ -37,10 +37,10 @@ export default function AiAssistantPage() {
         rows={5}
         aria-describedby="assistant-draft-budget"
         aria-invalid={isOverLimit}
-        className={`w-full rounded-card border px-3 py-2 text-sm outline-none focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-muted-dark ${
+        className={`w-full rounded-card border px-3 py-2 text-sm outline-none focus-visible:outline-2 focus-visible:outline-offset-2 ${
           isOverLimit
             ? 'border-red-500 focus-visible:outline-red-500'
-            : 'border-border-light focus-visible:outline-brand-500 dark:border-border-dark'
+            : 'border-border-light focus-visible:outline-brand-500'
         }`}
       />
 

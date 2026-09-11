@@ -39,7 +39,7 @@ export function Popup({ isOpen, onClose, title, children }: PopupProps) {
         aria-modal="true"
         aria-labelledby="popup-title"
         tabIndex={-1}
-        className="w-full max-w-md rounded-card bg-white p-6 shadow-xl outline-none dark:bg-surface-dark"
+        className="w-full max-w-md rounded-card bg-white p-6 shadow-xl outline-none"
       >
         <div className="mb-4 flex items-center justify-between">
           <h2 id="popup-title" className="text-lg font-semibold">
@@ -49,7 +49,7 @@ export function Popup({ isOpen, onClose, title, children }: PopupProps) {
             type="button"
             onClick={onClose}
             aria-label="Close dialog"
-            className="rounded-card p-1 text-slate-500 hover:bg-muted-light dark:hover:bg-muted-dark"
+            className="rounded-card p-1 text-slate-500 hover:bg-muted-light"
           >
             <X size={18} aria-hidden="true" />
           </button>

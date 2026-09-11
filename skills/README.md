@@ -9,7 +9,7 @@ Code discovers them automatically:
 | `storybook-design-system` | Storybook as the UI contract, Tailwind tokens |
 | `testing` | Vitest / Playwright CT / Playwright E2E strategy |
 | `api-service-server` | Axios boundary, typed contracts, error normalization |
-| `css-styling` | Tailwind-first styling, CSS Modules, dark mode |
+| `css-styling` | Tailwind-first styling, CSS Modules |
 | `accessibility` | WCAG 2.1 AA, keyboard, axe, Storybook a11y |
 | `security` | Secrets, XSS, PII, dependency risk |
 | `performance` | Code splitting, render cost, bundle chunking |

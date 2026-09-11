@@ -7,7 +7,6 @@ export interface SettingsSection {
 
 export const SETTINGS_SECTIONS: SettingsSection[] = [
   { id: 'profile', label: 'Profile', description: 'Your name, email and contact preferences.' },
-  { id: 'appearance', label: 'Appearance', description: 'Theme and display density.' },
   {
     id: 'notifications',
     label: 'Notifications',
