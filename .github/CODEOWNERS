@@ -1,0 +1,18 @@
+# Default owner for the repository.
+*                           @quincy-frontend
+
+# Two-reviewer paths per .claude/rules/code-review.md: auth, entitlements,
+# customer data handling, shared design system, and the AI rule files
+# themselves.
+/src/auth/                  @quincy-frontend @quincy-security
+/src/lib/httpClient.ts      @quincy-frontend @quincy-security
+/src/lib/sentry.ts          @quincy-frontend @quincy-security
+/src/services/              @quincy-frontend @quincy-security
+/src/components/ui/         @quincy-frontend @quincy-design
+/tailwind.config.js         @quincy-frontend @quincy-design
+
+# Protected configuration — changes here alter the guardrails themselves.
+/CLAUDE.md                  @quincy-frontend-leads
+/.claude/                    @quincy-frontend-leads
+/.eslintrc.cjs              @quincy-frontend-leads
+/.github/workflows/         @quincy-frontend-leads

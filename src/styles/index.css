@@ -2,21 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
-@layer base {
-  body {
-    @apply bg-surface-subtle text-slate-900 antialiased;
-  }
+:root {
+  color-scheme: light dark;
 }
 
-@layer components {
-  /* AG Grid theme variable overrides so the grid matches the Quincy
-     palette instead of shipping the default ag-theme-alpine look
-     unmodified. */
-  .ag-theme-quincy {
-    --ag-foreground-color: theme('colors.slate.800');
-    --ag-background-color: theme('colors.surface.DEFAULT');
-    --ag-header-background-color: theme('colors.surface.subtle');
-    --ag-border-color: theme('colors.slate.200');
-    --ag-row-hover-color: theme('colors.brand.50');
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply bg-surface-light text-slate-900 dark:bg-surface-dark dark:text-slate-100;
+  }
+  /* Visible focus everywhere — see .claude/rules/accessibility.md */
+  :focus-visible {
+    @apply outline outline-2 outline-offset-2 outline-brand-500;
   }
 }

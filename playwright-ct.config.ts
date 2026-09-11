@@ -1,25 +1,19 @@
 import { defineConfig, devices } from '@playwright/experimental-ct-react';
-import { resolve } from 'node:path';
+import path from 'node:path';
 
-// Component-test config: mounts individual React components in a real
-// browser via Playwright CT, separate from the full-app E2E suite above.
+// Component-testing layer (Playwright CT), distinct from Vitest unit tests
+// and from the E2E layer above. Use this for interaction-heavy components
+// (forms, grids, popups) that benefit from a real browser + real DOM.
 export default defineConfig({
   testDir: './tests/ct',
   snapshotDir: './tests/ct/__snapshots__',
   timeout: 10_000,
   fullyParallel: true,
-  forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  reporter: process.env.CI ? [['github'], ['junit', { outputFile: 'test-results/ct-junit.xml' }]] : 'html',
+  reporter: [['list'], ['html', { outputFolder: 'playwright-ct-report', open: 'never' }]],
   use: {
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     ctViteConfig: {
-      resolve: {
-        alias: {
-          '@': resolve(__dirname, './src'),
-          '@components': resolve(__dirname, './src/components'),
-        },
-      },
+      resolve: { alias: { '@': path.resolve(__dirname, './src') } },
     },
   },
   projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],

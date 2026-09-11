@@ -1,13 +1,11 @@
 node_modules
 dist
-dist-ssr
+dist-storybook
+storybook-static
 coverage
 playwright-report
 test-results
-blob-report
 .env
 .env.local
-.env.*.local
 *.local
 .DS_Store
-*.log
