@@ -12,5 +12,8 @@ export interface DashboardSummary {
 /** Only service-layer files may import httpClient/axios. */
 export async function fetchDashboardSummary(): Promise<DashboardSummary> {
   const { data } = await httpClient.get<DashboardSummary>('/dashboard/summary');
-  return data;
+  return {
+    ...data,
+    premiumTrend: Array.isArray(data?.premiumTrend) ? data.premiumTrend : [],
+  };
 }
