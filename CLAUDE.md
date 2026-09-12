@@ -9,28 +9,28 @@ touched.
 
 ## Stack (do not deviate without approval)
 
-| Area | Choice |
-|---|---|
-| Framework | React 18 + TypeScript, strict mode |
-| Build | Vite |
-| Routing | React Router (lazy-loaded route-level code splitting) |
-| Styling | Tailwind CSS (tokens in `tailwind.config.js`) + CSS Modules for complex/one-off layouts |
-| Icons | `lucide-react` only |
-| Tables | AG Grid (`ag-grid-react`) for any enterprise/data-heavy table |
-| Charts | Recharts |
-| Server state, client state, complex state | Redux Toolkit (`src/redux`, feature `stores/*Slice.ts`) — no parallel state library |
-| Forms | Formik |
-| Validation | Yup, wired to the Formik schema |
-| HTTP | Axios, only inside `src/services/**` or `src/lib/axiosClient.ts` |
-| Unit/component tests | Vitest + React Testing Library |
-| Component tests (browser) | Playwright CT (`tests/ct`) |
-| E2E | Playwright (`tests/e2e`), network mocked with MSW/Playwright route mocks |
-| Lint/format | ESLint (strict TS, boundaries, jsx-a11y) + Prettier |
-| Git hooks | Husky + lint-staged, pre-commit only |
-| Package manager | npm (commit `package-lock.json`) |
-| CI/CD | GitHub Actions (`.github/workflows/ci.yml`) |
-| Monitoring | Sentry (runtime errors) + Monocart reporter (Playwright test reporting) |
-| Theming | Single fixed light theme — custom token layer in `tailwind.config.js` |
+| Area                                      | Choice                                                                                  |
+| ----------------------------------------- | --------------------------------------------------------------------------------------- |
+| Framework                                 | React 18 + TypeScript, strict mode                                                      |
+| Build                                     | Vite                                                                                    |
+| Routing                                   | React Router (lazy-loaded route-level code splitting)                                   |
+| Styling                                   | Tailwind CSS (tokens in `tailwind.config.js`) + CSS Modules for complex/one-off layouts |
+| Icons                                     | `lucide-react` only                                                                     |
+| Tables                                    | AG Grid (`ag-grid-react`) for any enterprise/data-heavy table                           |
+| Charts                                    | Recharts                                                                                |
+| Server state, client state, complex state | Redux Toolkit (`src/redux`, feature `stores/*Slice.ts`) — no parallel state library     |
+| Forms                                     | Formik                                                                                  |
+| Validation                                | Yup, wired to the Formik schema                                                         |
+| HTTP                                      | Axios, only inside `src/services/**` or `src/lib/axiosClient.ts`                        |
+| Unit/component tests                      | Vitest + React Testing Library                                                          |
+| Component tests (browser)                 | Playwright CT (`tests/ct`)                                                              |
+| E2E                                       | Playwright (`tests/e2e`), network mocked with MSW/Playwright route mocks                |
+| Lint/format                               | ESLint (strict TS, boundaries, jsx-a11y) + Prettier                                     |
+| Git hooks                                 | Husky + lint-staged, pre-commit only                                                    |
+| Package manager                           | npm (commit `package-lock.json`)                                                        |
+| CI/CD                                     | GitHub Actions (`.github/workflows/ci.yml`)                                             |
+| Monitoring                                | Sentry (runtime errors) + Monocart reporter (Playwright test reporting)                 |
+| Theming                                   | Single fixed light theme — custom token layer in `tailwind.config.js`                   |
 
 ## Rule Zero — stop and ask, don't assume
 
@@ -100,21 +100,21 @@ touched.
 
 ## Architecture boundaries (see `src/` layout below and `.claude/skills/frontend-architecture`)
 
-| Layer | Responsibility |
-|---|---|
-| `src/app` | Router, providers (Redux `Provider`, Sentry, error boundary), and the connected `AppShell`. The shell lives here rather than in `components/layout` because it reads feature state, which the `components` layer is not permitted to do. |
-| `src/auth` | Auth flows, guards, permission helpers, and the in-memory token store. The access token is held in `auth/services/tokenStore.ts` only — never in browser storage and never in the Redux store. |
-| `src/components/ui` | Reusable, presentational, design-system-aligned components (Button, Popup, icons, DataGrid wrapper). No feature-specific logic. |
-| `src/components/layout` | Presentational layout primitives (`PageHeader`). Props-only, no feature state — the connected shell is in `src/app`. |
-| `src/components/controls/form` | Formik-bound form controls (TextField, Select, DatePicker) shared across features. |
-| `src/features/<name>` | One folder per business feature (dashboard, quotes, policies, endorsements, renewals, notifications, settings, ai-assistant). Each may have its own `components/`, `pages/`, `services/`, `stores/`, `hooks/`, `types/`, `utils/`, `constants/`, `steps/`. Features may import shared layers but should not import from sibling features' internals — share via `src/components`, `src/services`, `src/redux`, or `src/types` instead. |
-| `src/redux` | Store setup (`store.ts`), root reducer composition, typed hooks (`useAppDispatch`/`useAppSelector`). Feature reducers live in `src/features/<name>/stores/` and are registered here. |
-| `src/services` | Axios instance + all HTTP calls, grouped by domain. Only place allowed to import `axios`. |
-| `src/hooks` | Cross-feature reusable hooks (`useMediaQuery`, `useDebounce`). |
-| `src/lib` | Thin wrappers around third-party SDKs (Sentry init, Axios instance factory). |
-| `src/utils` | Small pure functions. Not a dumping ground for business logic. |
-| `src/types` | Shared TypeScript types/interfaces used across features. |
-| `src/styles` | Tailwind entrypoint (`index.css`), global CSS variables, design tokens. |
+| Layer                          | Responsibility                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `src/app`                      | Router, providers (Redux `Provider`, Sentry, error boundary), and the connected `AppShell`. The shell lives here rather than in `components/layout` because it reads feature state, which the `components` layer is not permitted to do.                                                                                                                                                                                               |
+| `src/auth`                     | Auth flows, guards, permission helpers, and the in-memory token store. The access token is held in `auth/services/tokenStore.ts` only — never in browser storage and never in the Redux store.                                                                                                                                                                                                                                         |
+| `src/components/ui`            | Reusable, presentational, design-system-aligned components (Button, Popup, icons, DataGrid wrapper). No feature-specific logic.                                                                                                                                                                                                                                                                                                        |
+| `src/components/layout`        | Presentational layout primitives (`PageHeader`). Props-only, no feature state — the connected shell is in `src/app`.                                                                                                                                                                                                                                                                                                                   |
+| `src/components/controls/form` | Formik-bound form controls (TextField, Select, DatePicker) shared across features.                                                                                                                                                                                                                                                                                                                                                     |
+| `src/features/<name>`          | One folder per business feature (dashboard, quotes, policies, endorsements, renewals, notifications, settings, ai-assistant). Each may have its own `components/`, `pages/`, `services/`, `stores/`, `hooks/`, `types/`, `utils/`, `constants/`, `steps/`. Features may import shared layers but should not import from sibling features' internals — share via `src/components`, `src/services`, `src/redux`, or `src/types` instead. |
+| `src/redux`                    | Store setup (`store.ts`), root reducer composition, typed hooks (`useAppDispatch`/`useAppSelector`). Feature reducers live in `src/features/<name>/stores/` and are registered here.                                                                                                                                                                                                                                                   |
+| `src/services`                 | Axios instance + all HTTP calls, grouped by domain. Only place allowed to import `axios`.                                                                                                                                                                                                                                                                                                                                              |
+| `src/hooks`                    | Cross-feature reusable hooks (`useMediaQuery`, `useDebounce`).                                                                                                                                                                                                                                                                                                                                                                         |
+| `src/lib`                      | Thin wrappers around third-party SDKs (Sentry init, Axios instance factory).                                                                                                                                                                                                                                                                                                                                                           |
+| `src/utils`                    | Small pure functions. Not a dumping ground for business logic.                                                                                                                                                                                                                                                                                                                                                                         |
+| `src/types`                    | Shared TypeScript types/interfaces used across features.                                                                                                                                                                                                                                                                                                                                                                               |
+| `src/styles`                   | Tailwind entrypoint (`index.css`), global CSS variables, design tokens.                                                                                                                                                                                                                                                                                                                                                                |
 
 ## Shared constants & design tokens
 
@@ -145,13 +145,13 @@ touched.
 
 ## Testing policy
 
-| Layer | Tool | Use for |
-|---|---|---|
-| Unit | Vitest | Pure functions, Redux reducers/selectors, Yup schemas, utils |
-| Component | Vitest + RTL, or Playwright CT for browser-dependent interaction | Component behavior, Formik form validation, AG Grid cell renderers |
-| Accessibility | `jest-axe` in component tests, Storybook a11y addon per story | Keyboard operability, labels, contrast, roles |
-| E2E | Playwright + MSW/route mocks | Critical user journeys only (quote creation, policy lookup, login) |
-| Regression | Same tools as above | Every bug fix ships a regression test at the lowest sensible layer |
+| Layer         | Tool                                                             | Use for                                                            |
+| ------------- | ---------------------------------------------------------------- | ------------------------------------------------------------------ |
+| Unit          | Vitest                                                           | Pure functions, Redux reducers/selectors, Yup schemas, utils       |
+| Component     | Vitest + RTL, or Playwright CT for browser-dependent interaction | Component behavior, Formik form validation, AG Grid cell renderers |
+| Accessibility | `jest-axe` in component tests, Storybook a11y addon per story    | Keyboard operability, labels, contrast, roles                      |
+| E2E           | Playwright + MSW/route mocks                                     | Critical user journeys only (quote creation, policy lookup, login) |
+| Regression    | Same tools as above                                              | Every bug fix ships a regression test at the lowest sensible layer |
 
 Coverage thresholds are enforced in `vitest.config.ts` (statements/functions/lines 80%, branches
 75%) and are a gap detector, not a vanity metric — prioritize risk-heavy branches over 100%.
@@ -197,7 +197,7 @@ Coverage thresholds are enforced in `vitest.config.ts` (statements/functions/lin
 3. Questions asked and answers received.
 4. Assumptions made (should be none, if Rule Zero was followed).
 5. Tests added/updated, and the actual output of `npm run test` / `npm run lint` / `npm run
-   typecheck` / relevant E2E or CT run.
+typecheck` / relevant E2E or CT run.
 6. Accessibility status.
 7. Security/PII considerations.
 8. Anything left undone, and why.

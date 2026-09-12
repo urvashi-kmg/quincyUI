@@ -26,41 +26,41 @@ This project uses **three types of tests**:
 Create `tests/unit/utils/formatters.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest'
-import { formatDate, formatCurrency, formatStatus } from '@/utils/formatters'
+import { describe, it, expect } from 'vitest';
+import { formatDate, formatCurrency, formatStatus } from '@/utils/formatters';
 
 describe('Formatters', () => {
   describe('formatDate', () => {
     it('should format a date string to readable format', () => {
-      const result = formatDate('2026-01-15')
-      expect(result).toBe('January 15, 2026')
-    })
+      const result = formatDate('2026-01-15');
+      expect(result).toBe('January 15, 2026');
+    });
 
     it('should handle invalid dates', () => {
-      expect(() => formatDate('invalid')).toThrow()
-    })
+      expect(() => formatDate('invalid')).toThrow();
+    });
 
     it('should handle null/undefined', () => {
-      expect(formatDate(null)).toBe('')
-      expect(formatDate(undefined)).toBe('')
-    })
-  })
+      expect(formatDate(null)).toBe('');
+      expect(formatDate(undefined)).toBe('');
+    });
+  });
 
   describe('formatCurrency', () => {
     it('should format currency with USD symbol', () => {
-      const result = formatCurrency(1234.56)
-      expect(result).toBe('$1,234.56')
-    })
+      const result = formatCurrency(1234.56);
+      expect(result).toBe('$1,234.56');
+    });
 
     it('should handle zero', () => {
-      expect(formatCurrency(0)).toBe('$0.00')
-    })
+      expect(formatCurrency(0)).toBe('$0.00');
+    });
 
     it('should handle negative values', () => {
-      expect(formatCurrency(-500)).toBe('-$500.00')
-    })
-  })
-})
+      expect(formatCurrency(-500)).toBe('-$500.00');
+    });
+  });
+});
 ```
 
 ### Testing Hooks
@@ -68,9 +68,9 @@ describe('Formatters', () => {
 Create `tests/unit/hooks/useBreakpoint.test.ts`:
 
 ```typescript
-import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
-import { renderHook } from '@testing-library/react'
-import { useBreakpoint } from '@/hooks/useBreakpoint'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { renderHook } from '@testing-library/react';
+import { useBreakpoint } from '@/hooks/useBreakpoint';
 
 describe('useBreakpoint', () => {
   // Mock window.matchMedia
@@ -84,20 +84,20 @@ describe('useBreakpoint', () => {
       addEventListener: vi.fn(),
       removeEventListener: vi.fn(),
       dispatchEvent: vi.fn(),
-    })
-    window.matchMedia = vi.fn(matchMediaMock as any)
-  })
+    });
+    window.matchMedia = vi.fn(matchMediaMock as any);
+  });
 
   it('should return isMobile=true on small screens', () => {
-    const { result } = renderHook(() => useBreakpoint())
-    expect(result.current.isMobile).toBe(true)
-  })
+    const { result } = renderHook(() => useBreakpoint());
+    expect(result.current.isMobile).toBe(true);
+  });
 
   it('should return isTablet=false on small screens', () => {
-    const { result } = renderHook(() => useBreakpoint())
-    expect(result.current.isTablet).toBe(false)
-  })
-})
+    const { result } = renderHook(() => useBreakpoint());
+    expect(result.current.isTablet).toBe(false);
+  });
+});
 ```
 
 ### Testing Redux Selectors
@@ -105,9 +105,9 @@ describe('useBreakpoint', () => {
 Create `tests/unit/redux/selector.test.ts`:
 
 ```typescript
-import { describe, it, expect } from 'vitest'
-import { selectQuoteListPermissions } from '@/redux/selector'
-import type { RootState } from '@/redux/store'
+import { describe, it, expect } from 'vitest';
+import { selectQuoteListPermissions } from '@/redux/selector';
+import type { RootState } from '@/redux/store';
 
 describe('Redux Selectors', () => {
   describe('selectQuoteListPermissions', () => {
@@ -121,37 +121,37 @@ describe('Redux Selectors', () => {
             ],
           },
         },
-      } as any as RootState
+      } as any as RootState;
 
-      const permissions = selectQuoteListPermissions(mockState)
+      const permissions = selectQuoteListPermissions(mockState);
 
-      expect(permissions.canViewQuotes).toBe(true)
-      expect(permissions.canCreateQuote).toBe(true)
-      expect(permissions.canEditQuote).toBe(false) // Not in the list
-    })
+      expect(permissions.canViewQuotes).toBe(true);
+      expect(permissions.canCreateQuote).toBe(true);
+      expect(permissions.canEditQuote).toBe(false); // Not in the list
+    });
 
     it('should handle empty permissions', () => {
       const mockState = {
         userInfo: { data: { userPermissions: [] } },
-      } as any as RootState
+      } as any as RootState;
 
-      const permissions = selectQuoteListPermissions(mockState)
+      const permissions = selectQuoteListPermissions(mockState);
 
-      expect(permissions.canViewQuotes).toBe(false)
-      expect(permissions.canCreateQuote).toBe(false)
-    })
+      expect(permissions.canViewQuotes).toBe(false);
+      expect(permissions.canCreateQuote).toBe(false);
+    });
 
     it('should handle null user data', () => {
       const mockState = {
         userInfo: { data: null },
-      } as any as RootState
+      } as any as RootState;
 
-      const permissions = selectQuoteListPermissions(mockState)
+      const permissions = selectQuoteListPermissions(mockState);
 
-      expect(permissions.canViewQuotes).toBe(false)
-    })
-  })
-})
+      expect(permissions.canViewQuotes).toBe(false);
+    });
+  });
+});
 ```
 
 ### Running Unit Tests
@@ -283,94 +283,92 @@ npm run test           # Headless run with results
 Create `tests/e2e/quotes.spec.ts`:
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test.describe('Quotes Workflow', () => {
   test.beforeEach(async ({ page }) => {
     // Navigate to login page before each test
-    await page.goto('http://localhost:5173')
-  })
+    await page.goto('http://localhost:5173');
+  });
 
   test('user can create a quote', async ({ page }) => {
     // Login
-    await page.fill('input[name="username"]', 'testuser')
-    await page.fill('input[name="password"]', 'password123')
-    await page.click('button:has-text("Login")')
+    await page.fill('input[name="username"]', 'testuser');
+    await page.fill('input[name="password"]', 'password123');
+    await page.click('button:has-text("Login")');
 
     // Wait for dashboard to load
-    await page.waitForURL('**/dashboard')
+    await page.waitForURL('**/dashboard');
 
     // Navigate to quotes
-    await page.click('a:has-text("Quotes")')
-    await page.waitForURL('**/quotes')
+    await page.click('a:has-text("Quotes")');
+    await page.waitForURL('**/quotes');
 
     // Click "New Quote"
-    await page.click('button:has-text("New Quote")')
+    await page.click('button:has-text("New Quote")');
 
     // Fill out quote form
-    await page.fill('input[name="insuredName"]', 'John Doe')
-    await page.selectOption('select[name="lob"]', 'commercial-auto')
-    await page.click('button:has-text("Next")')
+    await page.fill('input[name="insuredName"]', 'John Doe');
+    await page.selectOption('select[name="lob"]', 'commercial-auto');
+    await page.click('button:has-text("Next")');
 
     // Complete additional steps
-    await page.fill('input[name="addressLine1"]', '123 Main St')
-    await page.click('button:has-text("Submit")')
+    await page.fill('input[name="addressLine1"]', '123 Main St');
+    await page.click('button:has-text("Submit")');
 
     // Verify success
-    await expect(page.locator('text=Quote created successfully')).toBeVisible()
-    await page.waitForURL('**/quotes')
-  })
+    await expect(page.locator('text=Quote created successfully')).toBeVisible();
+    await page.waitForURL('**/quotes');
+  });
 
   test('user can edit an existing quote', async ({ page }) => {
     // Login and navigate to quotes
-    await page.goto('http://localhost:5173/quotes')
-    await page.waitForLoadState('networkidle')
+    await page.goto('http://localhost:5173/quotes');
+    await page.waitForLoadState('networkidle');
 
     // Click first quote's edit button
-    await page.click('table tr:first-child button:has-text("Edit")')
+    await page.click('table tr:first-child button:has-text("Edit")');
 
     // Modify a field
-    await page.fill('input[name="insuredName"]', 'Jane Doe')
-    await page.click('button:has-text("Save")')
+    await page.fill('input[name="insuredName"]', 'Jane Doe');
+    await page.click('button:has-text("Save")');
 
     // Verify success
-    await expect(page.locator('text=Quote updated')).toBeVisible()
-  })
+    await expect(page.locator('text=Quote updated')).toBeVisible();
+  });
 
   test('permission denial is handled gracefully', async ({ page }) => {
     // Login as user without quote creation permission
     // (Assuming mock API or test account setup)
-    
-    await page.goto('http://localhost:5173/quotes')
-    
+
+    await page.goto('http://localhost:5173/quotes');
+
     // "New Quote" button should not be visible or should be disabled
-    const newQuoteBtn = page.locator('button:has-text("New Quote")')
-    
+    const newQuoteBtn = page.locator('button:has-text("New Quote")');
+
     // Either button is hidden or disabled
-    const isHidden = await newQuoteBtn.isHidden()
-    const isDisabled = await newQuoteBtn.isDisabled()
-    
-    expect(isHidden || isDisabled).toBe(true)
-  })
+    const isHidden = await newQuoteBtn.isHidden();
+    const isDisabled = await newQuoteBtn.isDisabled();
+
+    expect(isHidden || isDisabled).toBe(true);
+  });
 
   test('error messages are displayed on API failure', async ({ page }) => {
-    await page.goto('http://localhost:5173/quotes/new')
+    await page.goto('http://localhost:5173/quotes/new');
 
     // Fill minimal form
-    await page.fill('input[name="insuredName"]', 'John')
+    await page.fill('input[name="insuredName"]', 'John');
 
     // Mock API error
-    await page.route('**/api/v1/policy/CreateQuote', route =>
-      route.abort('failed')
-    )
+    await page.route('**/api/v1/policy/CreateQuote', (route) => route.abort('failed'));
 
     // Try to submit
-    await page.click('button:has-text("Submit")')
+    await page.click('button:has-text("Submit")');
 
     // Error message should appear
-    await expect(page.locator('text=Failed to create quote')).toBeVisible()
-  })
-})
+    await expect(page.locator('text=Failed to create quote')).toBeVisible();
+  });
+});
 ```
 
 ### Running E2E Tests
@@ -385,14 +383,15 @@ npm run test:e2e:ui    # Interactive UI
 ### 1. Test Naming
 
 Use descriptive names that explain the behavior:
+
 ```typescript
 // ✅ Good
-it('should show validation error when email is invalid')
-it('should disable submit button while submitting')
+it('should show validation error when email is invalid');
+it('should disable submit button while submitting');
 
 // ❌ Bad
-it('validates email')
-it('button state')
+it('validates email');
+it('button state');
 ```
 
 ### 2. Arrange-Act-Assert (AAA) Pattern
@@ -403,30 +402,30 @@ it('should filter quotes by status', () => {
   const quotes = [
     { id: 1, status: 'draft' },
     { id: 2, status: 'active' },
-  ]
-  
+  ];
+
   // Act
-  const filtered = quotes.filter(q => q.status === 'active')
-  
+  const filtered = quotes.filter((q) => q.status === 'active');
+
   // Assert
-  expect(filtered).toHaveLength(1)
-  expect(filtered[0].id).toBe(2)
-})
+  expect(filtered).toHaveLength(1);
+  expect(filtered[0].id).toBe(2);
+});
 ```
 
 ### 3. Mock External Dependencies
 
 ```typescript
-import { vi } from 'vitest'
+import { vi } from 'vitest';
 
 it('should handle API errors', async () => {
   // Mock the API call
-  const mockApi = vi.fn().mockRejectedValue(new Error('Network error'))
-  
+  const mockApi = vi.fn().mockRejectedValue(new Error('Network error'));
+
   // Test error handling
-  const result = await errorHandler(mockApi)
-  expect(result).toBe('error')
-})
+  const result = await errorHandler(mockApi);
+  expect(result).toBe('error');
+});
 ```
 
 ### 4. Avoid Testing Implementation Details
@@ -447,16 +446,19 @@ it('should display quotes after loading', async ({ mount }) => {
 ## Debugging Tests
 
 **Run tests in headed mode (see browser):**
+
 ```bash
 npx playwright test --headed
 ```
 
 **Debug a single test:**
+
 ```bash
 npx playwright test --debug tests/e2e/quotes.spec.ts
 ```
 
 **Generate coverage report:**
+
 ```bash
 npm run test:unit:coverage
 ```
@@ -464,6 +466,7 @@ npm run test:unit:coverage
 ## Do / Don't
 
 ✅ **Do:**
+
 - Test user-facing behavior, not implementation
 - Use `beforeEach` to set up common test state
 - Mock network calls and external APIs
@@ -472,6 +475,7 @@ npm run test:unit:coverage
 - Run full test suite before opening PR
 
 ❌ **Don't:**
+
 - Test library code (React, Formik, etc.)
 - Mock internal state if you can test via UI
 - Write overly brittle assertions (e.g., exact text matches)
@@ -485,6 +489,7 @@ npm run test:unit:coverage
 ```
 
 Reports coverage for:
+
 - **Lines:** 70%+
 - **Functions:** 70%+
 - **Branches:** 70%+

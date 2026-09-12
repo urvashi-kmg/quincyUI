@@ -44,13 +44,15 @@ export function MyFeaturePage() {
 Open `src/app/routes.tsx` and:
 
 1. Import the page (lazy-load if it's heavy):
+
    ```typescript
-   const MyFeaturePage = lazy(() => 
-     import('@/features/my/pages/MyFeaturePage').then(m => ({ default: m.MyFeaturePage }))
+   const MyFeaturePage = lazy(() =>
+     import('@/features/my/pages/MyFeaturePage').then((m) => ({ default: m.MyFeaturePage })),
    );
    ```
 
 2. Add the route in the `<Routes>` section:
+
    ```typescript
    <Route path="/my-feature" element={<ErrorBoundary><MyFeaturePage /></ErrorBoundary>} />
    ```
@@ -72,7 +74,7 @@ const NAV_ITEMS = [
   { icon: QuoteIcon, label: 'Quotes', path: '/quotes' },
   { icon: MyFeatureIcon, label: 'My Feature', path: '/my-feature' }, // Add here
   // ...
-]
+];
 ```
 
 Import the icon from lucide-react (e.g., `import { BookOpen } from 'lucide-react'`).
@@ -80,16 +82,17 @@ Import the icon from lucide-react (e.g., `import { BookOpen } from 'lucide-react
 ### 4. Add Permission Checks
 
 1. Open `src/redux/selector.ts` and add a selector for your page's permissions:
+
    ```typescript
    export const selectMyFeaturePagePermissions = (state: RootState) => {
-     const userPerms = state.userInfo.data?.userPermissions ?? []
+     const userPerms = state.userInfo.data?.userPermissions ?? [];
      return {
-       canViewPage: userPerms.some(p => p.permissionValue === 'VIEW_MY_FEATURE'),
-       canCreateItem: userPerms.some(p => p.permissionValue === 'CREATE_MY_ITEM'),
-       canEditItem: userPerms.some(p => p.permissionValue === 'EDIT_MY_ITEM'),
-       canDeleteItem: userPerms.some(p => p.permissionValue === 'DELETE_MY_ITEM'),
-     }
-   }
+       canViewPage: userPerms.some((p) => p.permissionValue === 'VIEW_MY_FEATURE'),
+       canCreateItem: userPerms.some((p) => p.permissionValue === 'CREATE_MY_ITEM'),
+       canEditItem: userPerms.some((p) => p.permissionValue === 'EDIT_MY_ITEM'),
+       canDeleteItem: userPerms.some((p) => p.permissionValue === 'DELETE_MY_ITEM'),
+     };
+   };
    ```
 
 2. Use in your page component (see step 1)
@@ -99,25 +102,27 @@ Import the icon from lucide-react (e.g., `import { BookOpen } from 'lucide-react
 If your page fetches data:
 
 1. **Create an RTK Query API** in `src/features/my/services/myApi.ts`:
+
    ```typescript
-   import { createApi } from '@reduxjs/toolkit/query/react'
-   import { axiosBaseQuery } from '@/lib/axiosClient'
-   import { API_ENDPOINTS } from '@/lib/apiEndpoints'
+   import { createApi } from '@reduxjs/toolkit/query/react';
+   import { axiosBaseQuery } from '@/lib/axiosClient';
+   import { API_ENDPOINTS } from '@/lib/apiEndpoints';
 
    export const myApi = createApi({
      reducerPath: 'myApi',
      baseQuery: axiosBaseQuery(apiClient),
      endpoints: (builder) => ({
        getMyData: builder.query({
-         query: () => ({ url: API_ENDPOINTS.getMyData })
-       })
-     })
-   })
+         query: () => ({ url: API_ENDPOINTS.getMyData }),
+       }),
+     }),
+   });
 
-   export const { useGetMyDataQuery } = myApi
+   export const { useGetMyDataQuery } = myApi;
    ```
 
 2. **Register in Redux store** (`src/redux/store.ts`):
+
    ```typescript
    [myApi.reducerPath]: myApi.reducer,
    // in middleware:
@@ -142,7 +147,7 @@ export const API_ENDPOINTS = {
   getMyData: '/api/v1/MyFeature/GetData',
   createMyItem: '/api/v1/MyFeature/CreateItem',
   // ...
-} as const
+} as const;
 ```
 
 ### 7. Create Tests
@@ -150,20 +155,20 @@ export const API_ENDPOINTS = {
 Create e2e test in `tests/e2e/my-feature.spec.ts`:
 
 ```typescript
-import { test, expect } from '@playwright/test'
+import { test, expect } from '@playwright/test';
 
 test.describe('My Feature Page', () => {
   test('should display the page when user has permission', async ({ page }) => {
-    await page.goto('http://localhost:5173/my-feature')
-    await expect(page).toHaveTitle(/.*/)
+    await page.goto('http://localhost:5173/my-feature');
+    await expect(page).toHaveTitle(/.*/);
     // Add more assertions
-  })
+  });
 
   test('should handle data loading', async ({ page }) => {
-    await page.goto('http://localhost:5173/my-feature')
+    await page.goto('http://localhost:5173/my-feature');
     // Assert loading state, then data renders
-  })
-})
+  });
+});
 ```
 
 ### 8. Add to Tests Config (if needed)
@@ -173,6 +178,7 @@ If your page uses custom hooks or complex state, add unit tests in `tests/unit/`
 ## Do / Don't
 
 ✅ **Do:**
+
 - Lazy-load heavy pages to keep initial bundle small
 - Wrap every lazy-loaded page in `<ErrorBoundary>`
 - Check permissions early and render an empty state if denied
@@ -181,6 +187,7 @@ If your page uses custom hooks or complex state, add unit tests in `tests/unit/`
 - Use existing patterns from `DashboardPage`, `QuoteListPage`, etc. as templates
 
 ❌ **Don't:**
+
 - Add synchronous side effects in the component body (use `useEffect`)
 - Forget to add the route (just adding the component won't make it accessible)
 - Skip permission checks even if "everyone" should see it (ask backend for the permission name)

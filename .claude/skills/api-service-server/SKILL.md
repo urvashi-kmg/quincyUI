@@ -6,9 +6,11 @@ description: Keep Quincy-UI's Axios/services network boundary consistent, typed,
 # API / Service-Server Skill
 
 ## Purpose
+
 Keep network boundaries consistent and secure across `src/services/**`.
 
 ## Rules
+
 - All endpoint definitions/calls belong in `src/services/**`, built on the shared Axios instance
   (`apiClient`) in `src/lib/axiosClient.ts`. This is the only place `axios` may be imported.
 - Components, hooks, and Redux slices call a service function or a `createAsyncThunk` that wraps

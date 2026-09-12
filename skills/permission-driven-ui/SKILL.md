@@ -21,19 +21,19 @@
 Open `src/redux/selector.ts` and create a selector for your feature:
 
 ```typescript
-import { RootState } from '@/redux/store'
+import { RootState } from '@/redux/store';
 
 // Example: permissions for the Quotes feature
 export const selectQuoteListPermissions = (state: RootState) => {
-  const userPerms = state.userInfo.data?.userPermissions ?? []
-  
+  const userPerms = state.userInfo.data?.userPermissions ?? [];
+
   // Create a map for faster lookup
-  const permMap = new Map(userPerms.map(p => [p.permissionValue, p]))
+  const permMap = new Map(userPerms.map((p) => [p.permissionValue, p]));
 
   return {
     // Query: can the user view the quotes list?
     canViewQuotes: permMap.has('VIEW_QUOTES'),
-    
+
     // Commands: can the user perform actions?
     canCreateQuote: permMap.has('CREATE_QUOTE'),
     canEditQuote: permMap.has('EDIT_QUOTE'),
@@ -42,11 +42,11 @@ export const selectQuoteListPermissions = (state: RootState) => {
     canCopyQuote: permMap.has('COPY_QUOTE'),
     canChangeTransaction: permMap.has('CHANGE_TRANSACTION'),
     canDeleteTransaction: permMap.has('DELETE_TRANSACTION'),
-    
+
     // Special: inquiry-only access (can view but not modify)
     canInquiryOnly: permMap.has('INQUIRY_ONLY_ACCESS'),
-  }
-}
+  };
+};
 ```
 
 ### 2. Use Permissions in Components
@@ -160,7 +160,7 @@ export function QuoteEditForm({ quote }: { quote: Quote }) {
         <div className="bg-blue-50 border border-blue-200 rounded p-3 mb-4 text-sm text-blue-700">
           You are viewing this quote in read-only mode.
         </div>
-        
+
         <form>
           {/* All fields disabled */}
           <Input value={quote.insuredName} disabled />
@@ -187,19 +187,19 @@ Sometimes the backend returns a 403 when an action is attempted. Handle graceful
 ```typescript
 const handleDeleteQuote = async (id: string) => {
   try {
-    await deleteQuote(id).unwrap()
-    toast({ type: 'success', message: 'Quote deleted' })
+    await deleteQuote(id).unwrap();
+    toast({ type: 'success', message: 'Quote deleted' });
   } catch (error: any) {
     if (error?.status === 403) {
       toast({
         type: 'error',
         message: 'You do not have permission to delete this quote.',
-      })
+      });
     } else {
-      toast({ type: 'error', message: 'Failed to delete quote' })
+      toast({ type: 'error', message: 'Failed to delete quote' });
     }
   }
-}
+};
 ```
 
 ### 6. Testing Permission-Driven UI
@@ -284,6 +284,7 @@ test.describe('Permission-Driven UI', () => {
 ## Do / Don't
 
 ✅ **Do:**
+
 - Create a selector for each feature's permissions (e.g., `selectQuoteListPermissions`)
 - Check top-level permissions at page entry (return early if denied)
 - Hide UI elements entirely if permission is required (cleaner UX than disabled buttons)
@@ -292,6 +293,7 @@ test.describe('Permission-Driven UI', () => {
 - Test both with and without permissions
 
 ❌ **Don't:**
+
 - Check permissions in every component (centralize in selectors)
 - Mix permission checks across files (keep them in `selector.ts`)
 - Assume a permission exists; always check its value
@@ -302,6 +304,7 @@ test.describe('Permission-Driven UI', () => {
 ## Permission Naming Convention
 
 Permission values typically follow this pattern:
+
 - `VIEW_<FEATURE>` — Can view the feature/page
 - `CREATE_<FEATURE>` — Can create a new item
 - `EDIT_<FEATURE>` or `CHANGE_<FEATURE>` — Can modify an item
@@ -310,6 +313,7 @@ Permission values typically follow this pattern:
 - `MANAGE_<FEATURE>` — Super-user; full control
 
 Example for Quotes:
+
 - `VIEW_QUOTES`
 - `CREATE_QUOTE`
 - `EDIT_QUOTE`

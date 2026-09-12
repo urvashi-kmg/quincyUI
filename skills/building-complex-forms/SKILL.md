@@ -16,15 +16,13 @@
 Create or open `src/features/<feature>/components/use<Feature>Form.ts`:
 
 ```typescript
-import * as Yup from 'yup'
+import * as Yup from 'yup';
 
 export const myFormSchema = Yup.object().shape({
   firstName: Yup.string()
     .required('First name is required')
     .max(50, 'First name cannot exceed 50 characters'),
-  email: Yup.string()
-    .email('Invalid email')
-    .required('Email is required'),
+  email: Yup.string().email('Invalid email').required('Email is required'),
   policyType: Yup.string()
     .required('Policy type is required')
     .oneOf(['commercial', 'personal'], 'Invalid policy type'),
@@ -38,7 +36,7 @@ export const myFormSchema = Yup.object().shape({
     then: (schema) => schema.required('Business name is required for commercial policies'),
     otherwise: (schema) => schema.optional(),
   }),
-})
+});
 ```
 
 ### 2. Create a Custom Hook for Form Logic
@@ -46,7 +44,7 @@ export const myFormSchema = Yup.object().shape({
 In the same file (or in the component file), create a hook:
 
 ```typescript
-import { useFormik } from 'formik'
+import { useFormik } from 'formik';
 
 export function useMyForm(onSubmitSuccess?: () => void) {
   const formik = useFormik({
@@ -61,16 +59,16 @@ export function useMyForm(onSubmitSuccess?: () => void) {
     onSubmit: async (values) => {
       try {
         // API call
-        const response = await apiClient.post('/api/v1/MyFeature/CreateItem', values)
-        onSubmitSuccess?.()
-        return response.data
+        const response = await apiClient.post('/api/v1/MyFeature/CreateItem', values);
+        onSubmitSuccess?.();
+        return response.data;
       } catch (error) {
-        formik.setStatus({ error: 'Failed to submit form' })
+        formik.setStatus({ error: 'Failed to submit form' });
       }
     },
-  })
+  });
 
-  return formik
+  return formik;
 }
 ```
 
@@ -93,7 +91,7 @@ export function MyForm({ onSuccess }: { onSuccess?: () => void }) {
       {/* Section 1: Basic Info */}
       <div className="space-y-4 border-b pb-6">
         <h2 className="text-base font-semibold text-slate-800">Basic Information</h2>
-        
+
         <Input
           label="First Name"
           name="firstName"
@@ -241,16 +239,12 @@ const myFormSchema = Yup.object().shape({
   email: Yup.string()
     .email('Invalid email')
     .required('Email is required')
-    .test(
-      'is-unique',
-      'Email already in use',
-      async (value) => {
-        if (!value) return true
-        const response = await apiClient.get(`/api/v1/Users/CheckEmail?email=${value}`)
-        return response.data.isUnique
-      }
-    ),
-})
+    .test('is-unique', 'Email already in use', async (value) => {
+      if (!value) return true;
+      const response = await apiClient.get(`/api/v1/Users/CheckEmail?email=${value}`);
+      return response.data.isUnique;
+    }),
+});
 ```
 
 ### 6. Form Hooks & Reusability
@@ -312,21 +306,21 @@ import { MyForm } from '@/features/quotes/components/MyForm'
 test.describe('MyForm', () => {
   test('should validate required fields', async ({ mount }) => {
     const component = await mount(<MyForm />)
-    
+
     // Try to submit without filling required fields
     await component.locator('button:has-text("Submit")').click()
-    
+
     // Check that validation errors appear
     await expect(component.locator('text=First name is required')).toBeVisible()
   })
 
   test('should submit the form', async ({ mount }) => {
     const component = await mount(<MyForm onSuccess={() => {}} />)
-    
+
     await component.locator('input[name="firstName"]').fill('John')
     await component.locator('input[name="email"]').fill('john@example.com')
     await component.locator('button:has-text("Submit")').click()
-    
+
     // Assert success state (e.g., page navigates or success message shows)
     await expect(component.locator('text=Success')).toBeVisible()
   })
@@ -336,6 +330,7 @@ test.describe('MyForm', () => {
 ## Do / Don't
 
 ✅ **Do:**
+
 - Define validation schemas **before** building components
 - Use Formik's `setFieldValue` for complex field interactions
 - Extract form logic into custom hooks for reusability
@@ -344,6 +339,7 @@ test.describe('MyForm', () => {
 - Test validation and submission flows
 
 ❌ **Don't:**
+
 - Manage form state with multiple `useState` calls (use Formik)
 - Skip validation on required fields
 - Hardcode error messages (centralize them in the schema)

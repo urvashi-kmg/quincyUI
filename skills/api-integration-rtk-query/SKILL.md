@@ -19,12 +19,12 @@ export const API_ENDPOINTS = {
   // Queries (GET-like)
   getQuotes: '/api/v1/policy/GetQuotes',
   getQuoteDetail: (id: string) => `/api/v1/policy/GetQuote?id=${encodeURIComponent(id)}`,
-  
+
   // Mutations (POST/PUT/DELETE)
   createQuote: '/api/v1/policy/CreateQuote',
   updateQuote: '/api/v1/policy/UpdateQuote',
   deleteQuote: (id: string) => `/api/v1/policy/DeleteQuote?id=${encodeURIComponent(id)}`,
-} as const
+} as const;
 ```
 
 ### 2. Create an RTK Query API
@@ -32,25 +32,25 @@ export const API_ENDPOINTS = {
 Create `src/features/<feature>/services/<feature>Api.ts`:
 
 ```typescript
-import { createApi } from '@reduxjs/toolkit/query/react'
-import { axiosBaseQuery } from '@/lib/axiosClient'
-import { apiClient } from '@/lib/axiosClient'
-import { API_ENDPOINTS } from '@/lib/apiEndpoints'
+import { createApi } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from '@/lib/axiosClient';
+import { apiClient } from '@/lib/axiosClient';
+import { API_ENDPOINTS } from '@/lib/apiEndpoints';
 
 export interface Quote {
-  id: string
-  quoteNumber: string
-  status: 'draft' | 'quoted' | 'pending' | 'active' | 'declined'
-  insuredName: string
-  premium: number
-  createdDate: string
+  id: string;
+  quoteNumber: string;
+  status: 'draft' | 'quoted' | 'pending' | 'active' | 'declined';
+  insuredName: string;
+  premium: number;
+  createdDate: string;
 }
 
 export interface CreateQuoteRequest {
-  policyType: string
-  insuredName: string
-  drivers: Driver[]
-  vehicles: Vehicle[]
+  policyType: string;
+  insuredName: string;
+  drivers: Driver[];
+  vehicles: Vehicle[];
 }
 
 export const quotesApi = createApi({
@@ -95,23 +95,20 @@ export const quotesApi = createApi({
         data: { ...payload, id },
       }),
       // Invalidate both the list and the specific detail
-      invalidatesTags: (result, error, { id }) => [
-        'Quotes',
-        { type: 'Quotes', id },
-      ],
+      invalidatesTags: (result, error, { id }) => ['Quotes', { type: 'Quotes', id }],
       // Optional: optimistically update the cache while request is in flight
       async onQueryStarted({ id, payload }, { dispatch, queryFulfilled }) {
         // Update cache immediately (optimistic update)
         const patchResult = dispatch(
           quotesApi.util.updateQueryData('getQuoteDetail', id, (draft) => {
-            Object.assign(draft, payload)
-          })
-        )
+            Object.assign(draft, payload);
+          }),
+        );
         try {
-          await queryFulfilled
+          await queryFulfilled;
         } catch {
           // If mutation fails, revert the cache update
-          patchResult.undo()
+          patchResult.undo();
         }
       },
     }),
@@ -125,7 +122,7 @@ export const quotesApi = createApi({
       invalidatesTags: ['Quotes'],
     }),
   }),
-})
+});
 
 export const {
   useGetQuotesQuery,
@@ -133,7 +130,7 @@ export const {
   useCreateQuoteMutation,
   useUpdateQuoteMutation,
   useDeleteQuoteMutation,
-} = quotesApi
+} = quotesApi;
 ```
 
 ### 3. Register the API in Redux Store
@@ -141,7 +138,7 @@ export const {
 Open `src/redux/store.ts`:
 
 ```typescript
-import { quotesApi } from '@/features/quotes/services/quotesApi'
+import { quotesApi } from '@/features/quotes/services/quotesApi';
 
 export const store = configureStore({
   reducer: {
@@ -152,7 +149,7 @@ export const store = configureStore({
     getDefaultMiddleware().concat(
       quotesApi.middleware, // Important: add the API middleware
     ),
-})
+});
 ```
 
 ### 4. Use in a Component (Query)
@@ -261,25 +258,25 @@ function QuoteDetailPage({ id }: { id?: string }) {
 **Manual refetch**:
 
 ```typescript
-const { refetch } = useGetQuotesQuery()
-refetch() // Refetch immediately
+const { refetch } = useGetQuotesQuery();
+refetch(); // Refetch immediately
 ```
 
 **Reset cache**:
 
 ```typescript
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 
-const dispatch = useDispatch()
+const dispatch = useDispatch();
 
 // Clear all quotes data
-dispatch(quotesApi.util.resetApiState())
+dispatch(quotesApi.util.resetApiState());
 
 // Clear a specific query
-dispatch(quotesApi.util.removeQueryData('getQuotes'))
+dispatch(quotesApi.util.removeQueryData('getQuotes'));
 
 // Invalidate a tag (triggers refetch on next component mount)
-dispatch(quotesApi.util.invalidateTags(['Quotes']))
+dispatch(quotesApi.util.invalidateTags(['Quotes']));
 ```
 
 ### 8. Error Handling
@@ -299,7 +296,7 @@ if (isError) {
 // Refetch every 30 seconds
 const { data } = useGetQuotesQuery(undefined, {
   pollingInterval: 30000,
-})
+});
 ```
 
 ### 10. Testing with RTK Query
@@ -319,7 +316,7 @@ test('should fetch and display quotes', async ({ mount }) => {
 
   // Wait for data to load
   await expect(component.locator('text=Loading')).toBeHidden()
-  
+
   // Assert quotes are displayed
   await expect(component.locator('table tbody tr')).toHaveCount(3)
 })
@@ -328,6 +325,7 @@ test('should fetch and display quotes', async ({ mount }) => {
 ## Do / Don't
 
 ✅ **Do:**
+
 - Use RTK Query for remote data (it handles caching and deduplication automatically)
 - Define endpoints in `apiEndpoints.ts` (centralizes documentation)
 - Use `tagTypes` and `invalidatesTags` for smart cache invalidation
@@ -336,6 +334,7 @@ test('should fetch and display quotes', async ({ mount }) => {
 - Add `refetch` callbacks to user actions (like a "Refresh" button)
 
 ❌ **Don't:**
+
 - Mix RTK Query and Redux slices for the same data (pick one)
 - Ignore caching — RTK Query's default is smart; don't bypass it
 - Call `.unwrap()` without a try/catch
@@ -346,11 +345,13 @@ test('should fetch and display quotes', async ({ mount }) => {
 ## Common Patterns
 
 **Fetch data only when needed:**
+
 ```typescript
-const { data } = useGetQuoteDetailQuery(id, { skip: !id })
+const { data } = useGetQuoteDetailQuery(id, { skip: !id });
 ```
 
 **Refetch on demand:**
+
 ```typescript
 const { refetch } = useGetQuotesQuery()
 <button onClick={() => refetch()}>Refresh</button>
