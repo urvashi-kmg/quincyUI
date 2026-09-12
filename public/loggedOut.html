@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logged Out - Quincy Mutual</title>
+  <link rel="icon" href="assets/images/favicon.png" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #f9f5f6;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.08);
+      max-width: 420px;
+      width: 100%;
+      padding: 40px 36px;
+      text-align: center;
+    }
+    .card img { height: 46px; width: auto; margin-bottom: 24px; }
+    h1 { font-size: 20px; font-weight: 700; color: #1e293b; margin-bottom: 10px; }
+    p  { font-size: 14px; color: #64748b; line-height: 1.6; margin-bottom: 28px; }
+    .btn-primary {
+      display: inline-block;
+      font-size: 14px;
+      font-weight: 700;
+      color: #ffffff;
+      background: #7244AE;
+      border: none;
+      border-radius: 9999px;
+      padding: 10px 32px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background-color 0.15s;
+    }
+    .btn-primary:hover { background: #633b99; }
+    .hint { font-size: 12px; color: #94a3b8; margin-top: 18px; margin-bottom: 0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <img src="assets/images/logo-login.png" alt="Quincy Mutual" />
+    <h1>You have been logged out successfully.</h1>
+    <!-- <p>Your session has ended and all cached data has been cleared.</p>
+    <a class="btn-primary" href="./">Back to Login</a> -->
+    <p class="hint">You can now safely close this browser tab.</p>
+  </div>
+  <script>
+    // Trap the browser Back button: the session is dead, so navigating back
+    // into the app's history entries must not be possible. Push a sentinel
+    // entry on load, then re-push it every time the user presses Back so
+    // this page always stays on top of the history stack.
+    (function () {
+      function armBackTrap() {
+        history.pushState(null, '', location.href);
+      }
+      armBackTrap();
+      window.addEventListener('popstate', armBackTrap);
+      // Re-arm if the page is restored from the back/forward cache
+      // (some browsers restore JS state without re-running scripts).
+      window.addEventListener('pageshow', function (e) {
+        if (e.persisted) armBackTrap();
+      });
+    })();
+  </script>
+</body>
+</html>

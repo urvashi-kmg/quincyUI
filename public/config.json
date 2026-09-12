@@ -1,0 +1,12 @@
+{
+  "apiBaseUrl":      "http://10.1.29.32:85/POC13/QuincyGateway",
+  "apiRegisterUrl":  "/api/v1/QuincyAuth/RegisterAndAssignRole",
+  "apiXKey":         "87a258d3-f87c-49cd-9c60-43d5a2b4d4f7",
+  "autoLoginUrl":    "/api/v1/Auth/authorize-token",
+  "smartyKey":       "278098532491060673",
+  "smartyEndpoint":  "https://us-autocomplete-pro.api.smarty.com/lookup",
+
+  "defaultLogin":    false,
+  "defaultUserId":   "jane.doe@quincymutual.com",
+  "defaultPassword": "Quincy#2026!"
+}

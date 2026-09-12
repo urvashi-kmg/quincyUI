@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Authenticating — Quincy</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f1f1ff;
+        font-family: Inter, system-ui, sans-serif;
+      }
+      .card {
+        background: #fff;
+        border-radius: 1rem;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        padding: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1.25rem;
+        max-width: 360px;
+        width: 100%;
+        text-align: center;
+      }
+      .brand {
+        font-size: 1.25rem;
+        font-weight: 800;
+        color: #a41c42;
+      }
+      .sub {
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-top: 2px;
+      }
+      .spinner {
+        width: 3.5rem;
+        height: 3.5rem;
+        border: 4px solid #ede9fe;
+        border-top-color: #a41c42;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .msg {
+        font-size: 0.875rem;
+        color: #475569;
+      }
+      .err {
+        color: #dc2626;
+      }
+      .btn {
+        padding: 0.6rem 1.4rem;
+        background: #a41c42;
+        color: #fff;
+        border: none;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        width: 100%;
+      }
+      .btn:hover {
+        background: #c42050;
+      }
+      .btn-ghost {
+        background: transparent;
+        border: 1px solid #e2e8f0;
+        color: #64748b;
+      }
+      .btn-ghost:hover {
+        background: #f8fafc;
+        color: #1e293b;
+      }
+      .hidden {
+        display: none !important;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <div>
+        <div class="brand">Quincy Mutual</div>
+        <div class="sub">MCA Insurance Portal</div>
+      </div>
+
+      <div id="spinner" class="spinner"></div>
+
+      <p id="msg" class="msg">Authenticating, please wait…</p>
+
+      <button id="retryBtn" class="btn hidden" onclick="doLogin()">
+        Try Again
+      </button>
+      <button id="loginBtn" class="btn btn-ghost hidden" onclick="goLogin()">
+        Back to Login
+      </button>
+    </div>
+
+    <script>
+      // Relative URL resolves to /POC9/GatewayAPI/... regardless of domain/port.
+      var AUTH_URL = "../QuincyGateway/api/v1/Auth/authorize-token";
+      var APP_ROOT = "/POC13/";
+
+      function showError(msg) {
+        document.getElementById("spinner").classList.add("hidden");
+        var p = document.getElementById("msg");
+        p.textContent = msg;
+        p.classList.add("err");
+        document.getElementById("retryBtn").classList.remove("hidden");
+        document.getElementById("loginBtn").classList.remove("hidden");
+      }
+
+      function goLogin() {
+        localStorage.removeItem("qm_auth");
+        localStorage.removeItem("qm_token");
+        localStorage.removeItem("qm_refresh_token");
+        window.location.replace(APP_ROOT);
+      }
+
+      function doLogin() {
+        // Show loading state
+        document.getElementById("spinner").classList.remove("hidden");
+        var p = document.getElementById("msg");
+        p.textContent = "Authenticating, please wait…";
+        p.classList.remove("err");
+        document.getElementById("retryBtn").classList.add("hidden");
+        document.getElementById("loginBtn").classList.add("hidden");
+
+        // If the auth guard injected a session-expiry error, show it immediately.
+        var injectedError = sessionStorage.getItem("autologin_error");
+        if (injectedError) {
+          sessionStorage.removeItem("autologin_error");
+          showError(injectedError);
+          return;
+        }
+
+        var key = new URLSearchParams(window.location.search).get("key") || "";
+        if (!key) {
+          showError(
+            "Missing authentication key. Please use the link provided by your administrator.",
+          );
+          return;
+        }
+
+        fetch(AUTH_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({ key: key }),
+        })
+          .then(function (res) {
+            if (!res.ok) throw new Error("Server returned " + res.status);
+            return res.json();
+          })
+          .then(function (data) {
+            var accessToken = data.accessToken;
+            var refreshToken = data.refreshToken;
+            if (!accessToken)
+              throw new Error("No access token received from server.");
+            // Store tokens — authStore reads these on startup
+            localStorage.setItem("qm_token", accessToken);
+            localStorage.setItem("qm_auth", "true");
+            if (refreshToken)
+              localStorage.setItem("qm_refresh_token", refreshToken);
+            // Hand off to the React SPA
+            window.location.replace(APP_ROOT);
+          })
+          .catch(function (err) {
+            showError(
+              err.message || "Authentication failed. Please try again.",
+            );
+          });
+      }
+
+      doLogin();
+    </script>
+  </body>
+</html>
