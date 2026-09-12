@@ -1,4 +1,4 @@
-import { httpClient } from '@/lib/httpClient';
+import { apiClient } from '@/lib/axiosClient';
 
 export type NotificationSeverity = 'info' | 'warning' | 'error' | 'success';
 
@@ -12,10 +12,10 @@ export interface AppNotification {
 }
 
 export async function fetchNotifications(): Promise<AppNotification[]> {
-  const { data } = await httpClient.get<AppNotification[]>('/notifications');
+  const { data } = await apiClient.get<AppNotification[]>('/notifications');
   return data;
 }
 
 export async function markNotificationRead(id: string): Promise<void> {
-  await httpClient.post(`/notifications/${id}/read`);
+  await apiClient.post(`/notifications/${id}/read`);
 }

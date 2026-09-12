@@ -21,7 +21,7 @@ touched.
 | Server state, client state, complex state | Redux Toolkit (`src/redux`, feature `stores/*Slice.ts`) — no parallel state library |
 | Forms | Formik |
 | Validation | Yup, wired to the Formik schema |
-| HTTP | Axios, only inside `src/services/**` or `src/lib/httpClient.ts` |
+| HTTP | Axios, only inside `src/services/**` or `src/lib/axiosClient.ts` |
 | Unit/component tests | Vitest + React Testing Library |
 | Component tests (browser) | Playwright CT (`tests/ct`) |
 | E2E | Playwright (`tests/e2e`), network mocked with MSW/Playwright route mocks |
@@ -129,7 +129,7 @@ touched.
   `src/types` where the contract is shared.
 - Components/hooks call a service function or a Redux Toolkit `createAsyncThunk`/RTK Query
   endpoint — never `axios`/`fetch` directly.
-- Centralize auth headers, error normalization, and retry/backoff in `src/lib/httpClient.ts`.
+- Centralize auth headers, error normalization, and retry/backoff in `src/lib/axiosClient.ts`.
 - Handle loading / success / empty / partial / error states explicitly in the UI (AG Grid and
   Recharts consumers included).
 - Never log request bodies, auth headers, or PII. Scrub PII from any Sentry breadcrumb/context.

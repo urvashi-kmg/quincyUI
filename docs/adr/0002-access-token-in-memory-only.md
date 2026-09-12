@@ -5,26 +5,36 @@ Accepted
 
 ## Context
 `.claude/rules/security.md` prohibits persisting tokens in `localStorage`/`sessionStorage` unless
-the security architecture explicitly requires it. An early draft of
-`src/lib/httpClient.ts` read the bearer token from `sessionStorage`, which contradicted that rule —
-tokens in web storage are readable by any script that achieves execution on the page, so an XSS
-foothold becomes a token theft.
+the security architecture explicitly requires it. An early draft of the shared Axios client read
+the bearer token from `sessionStorage`, which contradicted that rule — tokens in web storage are
+readable by any script that achieves execution on the page, so an XSS foothold becomes a token
+theft.
 
 ## Decision
-The access token lives in a module-scoped variable in `src/auth/services/tokenStore.ts`. It is
-never written to browser storage and never placed in the Redux store (which would also expose it
-via devtools and any state serialization). Session continuity across a page reload comes from a
-long-lived refresh token in an httpOnly, `Secure`, `SameSite` cookie issued by the backend, which
-`POST /auth/refresh` exchanges for a fresh access token. `httpClient` is configured with
-`withCredentials: true` so that cookie is sent.
+Both the access token and the refresh token live in a module-scoped store,
+`src/auth/utils/tokenStorage.ts`. Neither is ever written to browser storage or placed in the
+Redux store (which would also expose them via devtools and any state serialization).
+`POST /auth/refresh` takes the in-memory refresh token explicitly (no cookie involved —
+`src/lib/axiosClient.ts`'s `apiClient` does not set `withCredentials`) and returns a fresh pair,
+which `axiosClient.ts`'s response interceptor uses to transparently retry a request that came back
+401.
+
+**Update (2026-09):** an earlier version of this ADR held the refresh token in an httpOnly cookie
+instead of in memory. That model is superseded — see `.claude/rules/security.md`'s prohibition on
+custom auth mechanisms without sign-off if reintroducing cookie-based refresh.
+
+**Open item (2026-09):** the manual email/password login page/form that used to obtain the initial
+token pair (`POST /auth/login`) was removed. Nothing currently calls `apiClient` with no prior
+token except the (also currently unwired) SSO `autoLoginUrl`/`defaultLogin` path described in
+`src/lib/config.ts` — until that's wired up, there is no way to establish a session in this app.
 
 ## Consequences
-- An XSS foothold can still call the API as the user while the page is open, but cannot exfiltrate
-  a durable credential. This is a meaningful reduction, not elimination.
-- A hard reload costs one `/auth/refresh` round-trip before the first data request. This is the
-  intended trade-off; do not "optimize" it by caching the token to disk.
-- The backend must set the refresh cookie and support the refresh/logout endpoints. Until it does,
-  session restore will fail closed (the user is treated as signed out).
-- CSRF becomes relevant because a cookie is now involved: the refresh endpoint needs CSRF
-  protection (`SameSite=Strict` plus a token check). **Open item — confirm with the backend team
-  before enabling auth in an environment that handles real customer data.**
+- An XSS foothold can still call the API as the user while the page is open. Because the refresh
+  token is now also in memory (not behind `httpOnly`), an XSS foothold that runs while the page is
+  open can read it too — this is a weaker guarantee than the original cookie-based design, traded
+  for not depending on the backend to issue/manage a refresh cookie. Revisit if that trade-off is
+  not acceptable for an environment handling real customer data.
+- Neither token survives a hard reload or a new tab — there is no persistence mechanism at all.
+  This is the intended trade-off; do not "optimize" it by caching either token to disk.
+- No CSRF concern remains from this flow specifically, since no cookie is involved — the tokens
+  travel only as an explicit `Authorization` header / request body.

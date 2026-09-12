@@ -1,0 +1,5 @@
+{
+  "editor.formatOnSave": true,
+  "css.lint.unknownAtRules": "warning",
+  "scss.lint.unknownAtRules": "warning"
+}

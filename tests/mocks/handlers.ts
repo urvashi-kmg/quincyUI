@@ -22,12 +22,7 @@ export const handlers = [
   http.post('*/auth/refresh', () =>
     HttpResponse.json({
       accessToken: 'test-access-token',
-      user: {
-        id: 'u-1',
-        displayName: 'Test User',
-        email: 'test.user@example.com',
-        permissions: ['quotes:read', 'quotes:write', 'policies:read'],
-      },
+      refreshToken: 'test-refresh-token',
     }),
   ),
 

@@ -1,4 +1,4 @@
-import { httpClient } from '@/lib/httpClient';
+import { apiClient } from '@/lib/axiosClient';
 import type { Permission } from '../utils/permissions';
 
 export interface AuthenticatedUser {
@@ -8,21 +8,20 @@ export interface AuthenticatedUser {
   permissions: Permission[];
 }
 
-export interface SessionResponse {
+export interface RefreshedTokens {
   accessToken: string;
-  user: AuthenticatedUser;
+  refreshToken: string;
 }
 
 /**
- * Exchanges the httpOnly refresh cookie for a short-lived access token.
- * The login form itself is intentionally not implemented here — the identity
- * provider flow was not specified. See Rule Zero before adding one.
+ * Exchanges the in-memory refresh token for a fresh access token. Called by
+ * axiosClient.ts's response interceptor when a request comes back 401.
  */
-export async function refreshSession(): Promise<SessionResponse> {
-  const { data } = await httpClient.post<SessionResponse>('/auth/refresh');
+export async function refreshTokens(refreshToken: string, userName?: string): Promise<RefreshedTokens> {
+  const { data } = await apiClient.post<RefreshedTokens>('/auth/refresh', { refreshToken, userName });
   return data;
 }
 
 export async function logout(): Promise<void> {
-  await httpClient.post('/auth/logout');
+  await apiClient.post('/auth/logout');
 }

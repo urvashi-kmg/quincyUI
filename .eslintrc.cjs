@@ -14,7 +14,7 @@ module.exports = {
     'plugin:boundaries/recommended',
     'prettier',
   ],
-  ignorePatterns: ['dist', 'coverage', 'storybook-static', '*.config.*', '.eslintrc.cjs'],
+  ignorePatterns: ['dist', 'coverage', 'storybook-static', '*.config.*', '.eslintrc.cjs', '!.storybook'],
   parser: '@typescript-eslint/parser',
   parserOptions: {
     ecmaVersion: 'latest',
@@ -53,7 +53,7 @@ module.exports = {
         patterns: [
           {
             group: ['axios'],
-            message: 'Import axios only inside src/services/** or src/lib/httpClient.ts.',
+            message: 'Import axios only inside src/services/** or src/lib/axiosClient.ts.',
           },
         ],
       },
@@ -87,9 +87,17 @@ module.exports = {
         'src/services/**/*.ts',
         'src/features/*/services/**/*.ts',
         'src/auth/services/**/*.ts',
-        'src/lib/httpClient.ts',
+        'src/lib/axiosClient.ts',
       ],
       rules: { 'no-restricted-imports': 'off' },
+    },
+    {
+      // src/lib/config.ts is the one bootstrap-only exception to the
+      // "no raw fetch" rule: it loads public/config.json to determine
+      // apiBaseUrl itself, so it necessarily runs before axiosClient.ts's
+      // apiClient can be constructed — see .claude/rules/api-services.md.
+      files: ['src/lib/config.ts'],
+      rules: { 'no-restricted-globals': 'off' },
     },
     {
       files: ['**/*.test.{ts,tsx}', '**/*.spec.{ts,tsx}', 'tests/**/*.{ts,tsx}', '**/*.stories.tsx'],

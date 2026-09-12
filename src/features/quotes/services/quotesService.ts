@@ -1,4 +1,4 @@
-import { httpClient } from '@/lib/httpClient';
+import { apiClient } from '@/lib/axiosClient';
 import type { PaginatedResult } from '@/types';
 
 export interface Quote {
@@ -10,7 +10,7 @@ export interface Quote {
 }
 
 export async function fetchQuotes(page = 1, pageSize = 25): Promise<PaginatedResult<Quote>> {
-  const { data } = await httpClient.get<PaginatedResult<Quote>>('/quotes', {
+  const { data } = await apiClient.get<PaginatedResult<Quote>>('/quotes', {
     params: { page, pageSize },
   });
   return data;

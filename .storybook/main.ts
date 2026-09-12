@@ -3,16 +3,12 @@ import path from 'node:path';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.@(ts|tsx)'],
-  addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    '@storybook/addon-a11y',
-  ],
+  addons: ['@storybook/addon-essentials', '@storybook/addon-interactions', '@storybook/addon-a11y'],
   framework: {
     name: '@storybook/react-vite',
     options: {},
   },
-  viteFinal: async (viteConfig) => {
+  viteFinal: (viteConfig) => {
     viteConfig.resolve = viteConfig.resolve ?? {};
     viteConfig.resolve.alias = {
       ...(viteConfig.resolve.alias ?? {}),

@@ -1,4 +1,4 @@
-import { httpClient } from '@/lib/httpClient';
+import { apiClient } from '@/lib/axiosClient';
 import type { PremiumTrendPoint } from '../components/PremiumTrendChart';
 
 export interface DashboardSummary {
@@ -9,9 +9,9 @@ export interface DashboardSummary {
   premiumTrend: PremiumTrendPoint[];
 }
 
-/** Only service-layer files may import httpClient/axios. */
+/** Only service-layer files may import apiClient/axios. */
 export async function fetchDashboardSummary(): Promise<DashboardSummary> {
-  const { data } = await httpClient.get<DashboardSummary>('/dashboard/summary');
+  const { data } = await apiClient.get<DashboardSummary>('/dashboard/summary');
   return {
     ...data,
     premiumTrend: Array.isArray(data?.premiumTrend) ? data.premiumTrend : [],
