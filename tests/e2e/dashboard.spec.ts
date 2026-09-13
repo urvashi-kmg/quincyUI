@@ -14,23 +14,26 @@ const summary = {
 /**
  * Critical-journey E2E only, per .claude/rules/testing.md. Network is mocked at
  * the route level so this never depends on a live backend.
+ *
+ * There is currently no login/SSO flow to drive (see
+ * docs/adr/0002-access-token-in-memory-only.md, "Open item"), so each test
+ * seeds a session directly via window.__E2E_AUTH__, read by
+ * src/auth/utils/e2eTestSession.ts on boot (only active when the app is built
+ * with --mode e2e, per playwright.config.ts's webServer command).
  */
 test.describe('Dashboard', () => {
   test.beforeEach(async ({ page }) => {
-    await page.route('**/dashboard/summary', (route) => route.fulfill({ json: summary }));
-    await page.route('**/auth/refresh', (route) =>
-      route.fulfill({
-        json: {
-          accessToken: 'e2e-token',
-          user: {
-            id: 'u-1',
-            displayName: 'Test User',
-            email: 'test.user@example.com',
-            permissions: ['quotes:read', 'policies:read'],
-          },
-        },
-      }),
+    await page.addInitScript(
+      (seed) => {
+        window.__E2E_AUTH__ = seed;
+      },
+      {
+        accessToken: 'e2e-access-token',
+        refreshToken: 'e2e-refresh-token',
+        userName: 'test.user@example.com',
+      },
     );
+    await page.route('**/dashboard/summary', (route) => route.fulfill({ json: summary }));
   });
 
   test('shows the summary cards after loading', async ({ page }) => {

@@ -106,5 +106,16 @@ module.exports = {
         'boundaries/element-types': 'off',
       },
     },
+    {
+      // Playwright E2E/CT specs under tests/** aren't included in either
+      // tsconfig.app.json or tsconfig.node.json (neither covers this
+      // directory), so type-aware parsing fails with a hard parsing error
+      // rather than a rule violation. Fall back to syntax-only parsing here
+      // instead of adding a new tsconfig project for a directory nothing
+      // else type-checks.
+      files: ['tests/**/*.{ts,tsx}'],
+      extends: ['plugin:@typescript-eslint/disable-type-checked'],
+      parserOptions: { project: null },
+    },
   ],
 };

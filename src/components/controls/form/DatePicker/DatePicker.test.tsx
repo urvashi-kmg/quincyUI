@@ -44,6 +44,9 @@ describe('DatePicker', () => {
 
   it('has no detectable accessibility violations', async () => {
     const { container } = renderField();
-    expect(await axe(container)).toHaveNoViolations();
+    // jest-axe's custom matcher isn't type-augmented on Vitest's Assertion
+    // (see src/types/jest-axe.d.ts) — safe at runtime via src/test/setup.ts.
+    // @ts-expect-error -- see comment above
+    expect(await axe(container)).toHaveNoViolations(); // eslint-disable-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
   });
 });

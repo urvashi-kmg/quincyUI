@@ -24,7 +24,10 @@ export default defineConfig({
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
   webServer: {
-    command: 'npm run preview',
+    // Builds in the 'e2e' mode (skips tsc — already covered by the separate
+    // typecheck CI job) so import.meta.env.MODE === 'e2e' is baked into the
+    // bundle, gating the test-only session seed in main.tsx/e2eTestSession.ts.
+    command: 'npx vite build --mode e2e && npm run preview',
     url: 'http://localhost:4173',
     reuseExistingServer: !process.env.CI,
   },

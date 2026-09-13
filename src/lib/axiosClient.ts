@@ -12,7 +12,11 @@
  * refresh call is ever in-flight at a time.
  */
 
-import axios, { type AxiosError, type AxiosRequestConfig, type InternalAxiosRequestConfig } from 'axios';
+import axios, {
+  type AxiosError,
+  type AxiosRequestConfig,
+  type InternalAxiosRequestConfig,
+} from 'axios';
 import { getConfig } from '@/lib/config';
 import { tokenStorage } from '@/auth/utils/tokenStorage';
 import { refreshTokens } from '@/auth/services/authService';
@@ -113,7 +117,7 @@ apiClient.interceptors.request.use((req) => {
   }
 
   req.headers['X-Correlation-Id'] = generateUuid();
-  req.headers['X-Request-Id']     = generateUuid();
+  req.headers['X-Request-Id'] = generateUuid();
 
   if (!req.headers['X-Api-Key']) {
     try {

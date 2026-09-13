@@ -33,7 +33,11 @@ export function axiosBaseQuery(): BaseQueryFn<AxiosBaseQueryArgs, unknown, Axios
     } catch (err) {
       // axiosClient's response interceptor already normalises AxiosErrors into
       // plain Errors with .status/.errors/.errorMessage/.rawMessage attached.
-      const e = err as Error & { status?: number; errors?: Record<string, string[]>; errorMessage?: string };
+      const e = err as Error & {
+        status?: number;
+        errors?: Record<string, string[]>;
+        errorMessage?: string;
+      };
       return {
         error: {
           status: e.status,

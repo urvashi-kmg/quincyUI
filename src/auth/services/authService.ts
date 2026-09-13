@@ -17,8 +17,14 @@ export interface RefreshedTokens {
  * Exchanges the in-memory refresh token for a fresh access token. Called by
  * axiosClient.ts's response interceptor when a request comes back 401.
  */
-export async function refreshTokens(refreshToken: string, userName?: string): Promise<RefreshedTokens> {
-  const { data } = await apiClient.post<RefreshedTokens>('/auth/refresh', { refreshToken, userName });
+export async function refreshTokens(
+  refreshToken: string,
+  userName?: string,
+): Promise<RefreshedTokens> {
+  const { data } = await apiClient.post<RefreshedTokens>('/auth/refresh', {
+    refreshToken,
+    userName,
+  });
   return data;
 }
 

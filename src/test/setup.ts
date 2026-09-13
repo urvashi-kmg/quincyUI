@@ -8,7 +8,13 @@ import { server } from '../../tests/mocks/server';
 // exports `toHaveNoViolations` from its main entry, not a `jest-axe/matchers`
 // subpath (which doesn't exist in this version) — this import was failing
 // for every test file in the repo, not just ones touched here.
-expect.extend({ toHaveNoViolations });
+//
+// `toHaveNoViolations` is already the matchers map jest-axe expects
+// `expect.extend` to receive directly (`{ toHaveNoViolations: matcherFn }`);
+// wrapping it in another `{ toHaveNoViolations }` registered a matcher whose
+// value was that map instead of a function, so every axe assertion in the
+// repo failed at runtime with "expectAssertion.call is not a function".
+expect.extend(toHaveNoViolations);
 
 // MSW: any component test that reaches the network gets the shared handlers
 // from tests/mocks/handlers.ts. `onUnhandledRequest: 'error'` makes an

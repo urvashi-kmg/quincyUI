@@ -65,63 +65,47 @@ export async function loadConfig(): Promise<void> {
 
   try {
     const res = await fetch(`${import.meta.env.BASE_URL}config.json`, {
-      cache: "no-store",
+      cache: 'no-store',
     });
     if (res.ok) {
       raw = (await res.json()) as Partial<AppConfig>;
     } else {
-      console.warn(
-        `[Quincy] config.json returned HTTP ${res.status} — using build-time defaults.`,
-      );
+      console.warn(`[Quincy] config.json returned HTTP ${res.status} — using build-time defaults.`);
     }
   } catch {
-    console.warn(
-      "[Quincy] config.json could not be fetched — using build-time defaults.",
-    );
+    console.warn('[Quincy] config.json could not be fetched — using build-time defaults.');
   }
 
   // config.json takes priority; VITE_* env vars are the local-dev fallback.
-  const apiBaseUrl = raw.apiBaseUrl ?? import.meta.env.VITE_API_BASE_URL ?? "";
-  const apiXKey =
-    raw.apiXKey ?? (import.meta.env.VITE_API_X_KEY as string | undefined) ?? "";
+  const apiBaseUrl = raw.apiBaseUrl ?? import.meta.env.VITE_API_BASE_URL ?? '';
+  const apiXKey = raw.apiXKey ?? (import.meta.env.VITE_API_X_KEY as string | undefined) ?? '';
 
   _config = {
     apiBaseUrl,
     apiRegisterUrl:
-      raw.apiRegisterUrl ??
-      (import.meta.env.VITE_API_REGISTER_URL as string | undefined) ??
-      "",
+      raw.apiRegisterUrl ?? (import.meta.env.VITE_API_REGISTER_URL as string | undefined) ?? '',
     apiXKey,
     autoLoginUrl:
-      raw.autoLoginUrl ??
-      (import.meta.env.VITE_AUTO_LOGIN_URL as string | undefined) ??
-      "",
+      raw.autoLoginUrl ?? (import.meta.env.VITE_AUTO_LOGIN_URL as string | undefined) ?? '',
     notepadListTempBaseUrl:
       raw.notepadListTempBaseUrl ??
       (import.meta.env.VITE_NOTEPAD_LIST_TEMP_BASE_URL as string | undefined) ??
-      "",
+      '',
     notepadListTempApiKey:
       raw.notepadListTempApiKey ??
       (import.meta.env.VITE_NOTEPAD_LIST_TEMP_API_KEY as string | undefined) ??
-      "",
-    smartyKey:
-      raw.smartyKey ??
-      (import.meta.env.VITE_SMARTY_KEY as string | undefined) ??
-      "",
+      '',
+    smartyKey: raw.smartyKey ?? (import.meta.env.VITE_SMARTY_KEY as string | undefined) ?? '',
     smartyEndpoint:
       raw.smartyEndpoint ??
       (import.meta.env.VITE_SMARTY_ENDPOINT as string | undefined) ??
-      "https://us-autocomplete-pro.api.smarty.com/lookup",
+      'https://us-autocomplete-pro.api.smarty.com/lookup',
 
     defaultLogin: raw.defaultLogin ?? false,
     defaultUserId:
-      raw.defaultUserId ??
-      (import.meta.env.VITE_DEFAULT_USER_ID as string | undefined) ??
-      "",
+      raw.defaultUserId ?? (import.meta.env.VITE_DEFAULT_USER_ID as string | undefined) ?? '',
     defaultPassword:
-      raw.defaultPassword ??
-      (import.meta.env.VITE_DEFAULT_PASSWORD as string | undefined) ??
-      "",
+      raw.defaultPassword ?? (import.meta.env.VITE_DEFAULT_PASSWORD as string | undefined) ?? '',
   };
 
   if (!_config.apiBaseUrl) {
@@ -130,14 +114,9 @@ export async function loadConfig(): Promise<void> {
     );
   }
   if (!_config.apiXKey) {
-    console.warn(
-      '[Quincy] "apiXKey" is not configured — API requests will not include X-Api-Key.',
-    );
+    console.warn('[Quincy] "apiXKey" is not configured — API requests will not include X-Api-Key.');
   }
-  if (
-    _config.defaultLogin &&
-    (!_config.defaultUserId || !_config.defaultPassword)
-  ) {
+  if (_config.defaultLogin && (!_config.defaultUserId || !_config.defaultPassword)) {
     console.warn(
       '[Quincy] "defaultLogin" is true but "defaultUserId" or "defaultPassword" is missing — default login will not work.',
     );
@@ -163,7 +142,7 @@ export async function loadConfig(): Promise<void> {
 export function getConfig(): AppConfig {
   if (!_config) {
     throw new Error(
-      "[Quincy] getConfig() called before loadConfig() completed. Check bootstrap order in main.tsx.",
+      '[Quincy] getConfig() called before loadConfig() completed. Check bootstrap order in main.tsx.',
     );
   }
   return _config;
