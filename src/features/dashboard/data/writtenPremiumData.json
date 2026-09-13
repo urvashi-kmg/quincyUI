@@ -1,0 +1,72 @@
+[
+  {
+    "month": "All",
+    "premium": 194110353,
+    "comparison": 209602856
+  },
+  {
+    "month": "Dwelling Fire",
+    "premium": 3420923,
+    "comparison": 3255159
+  },
+  {
+    "month": "Home Owners",
+    "premium": 44824282,
+    "comparison": 45736290
+  },
+  {
+    "month": "Mobile Home",
+    "premium": 250211,
+    "comparison": 253391
+  },
+  {
+    "month": "MA Auto Ced",
+    "premium": 1713958,
+    "comparison": 3444815
+  },
+  {
+    "month": "MA Personal Auto",
+    "premium": 38698717,
+    "comparison": 43630413
+  },
+  {
+    "month": "Personal Auto",
+    "premium": 18134285,
+    "comparison": 21368787
+  },
+  {
+    "month": "Inland Marine",
+    "premium": 28519,
+    "comparison": 34515
+  },
+  {
+    "month": "Snowmobile",
+    "premium": 5508,
+    "comparison": 8635
+  },
+  {
+    "month": "Business Owners",
+    "premium": 43047382,
+    "comparison": 40932145
+  },
+  {
+    "month": "Business Auto",
+    "premium": 1078211,
+    "comparison": 1289615
+  },
+  {
+    "month": "Commercial Fire",
+    "premium": 35535,
+    "comparison": 29672
+  },
+  {
+    "month": "Commercial Package",
+    "premium": 834392,
+    "comparison": 888807
+  },
+  {
+    "month": "MA Commercial Auto",
+    "premium": 1625755,
+    "comparison": 1655384
+  }
+]

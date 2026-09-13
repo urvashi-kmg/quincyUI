@@ -1,11 +1,14 @@
 import { lazy, Suspense, type ReactNode } from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AppShell } from '@/app/AppShell';
+import { RequireAuth } from '@/auth/components/RequireAuth';
 
 /**
  * Every feature route is lazy-loaded for route-level code splitting — see
  * .claude/rules/performance.md. Add new feature routes the same way.
  */
+const LoginPage = lazy(() => import('@/auth/components/LoginPage'));
+const AutoLoginPage = lazy(() => import('@/auth/components/AutoLoginPage'));
 const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
 const QuotesListPage = lazy(() => import('@/features/quotes/pages/QuotesListPage'));
 const PoliciesListPage = lazy(() => import('@/features/policies/pages/PoliciesListPage'));
@@ -41,9 +44,15 @@ function NotFoundPage() {
 }
 
 const router = createBrowserRouter([
+  { path: '/login', element: lazyRoute(<LoginPage />) },
+  { path: '/autoLogin', element: lazyRoute(<AutoLoginPage />) },
   {
     path: '/',
-    element: <AppShell />,
+    element: (
+      <RequireAuth>
+        <AppShell />
+      </RequireAuth>
+    ),
     children: [
       { index: true, element: lazyRoute(<DashboardPage />) },
       { path: 'quotes', element: lazyRoute(<QuotesListPage />) },

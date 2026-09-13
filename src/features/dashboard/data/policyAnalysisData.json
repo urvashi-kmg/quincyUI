@@ -1,0 +1,47 @@
+{
+  "agencyCode": "00130",
+  "agencyName": "Burgin Platner And Co., LLC",
+  "lobs": [
+    {
+      "key": "all",
+      "code": "MCA",
+      "name": "All Lobs"
+    },
+    {
+      "key": "ma-personal",
+      "code": "PAP",
+      "name": "MA Personal Auto"
+    },
+    {
+      "key": "ma-comm",
+      "code": "HOP",
+      "name": "MA Commercial Auto"
+    },
+    {
+      "key": "commercial",
+      "code": "BOP",
+      "name": "Personal Auto"
+    },
+    {
+      "key": "home",
+      "code": "DFA",
+      "name": "Home Owners"
+    }
+  ],
+  "categories": [
+    { "name": "Quotes", "all": 533, "ma-personal": 177, "ma-comm": 0, "commercial": 73, "home": 214 },
+    { "name": "New Business", "all": 7965, "ma-personal": 2606, "ma-comm": 44, "commercial": 726, "home": 3492 },
+    { "name": "Renewals", "all": 79866, "ma-personal": 18369, "ma-comm": 203, "commercial": 6056, "home": 46493 },
+    { "name": "Endorsements", "all": 58341, "ma-personal": 24227, "ma-comm": 267, "commercial": 5946, "home": 23487 },
+    { "name": "Final Cancels", "all": 9984, "ma-personal": 2866, "ma-comm": 51, "commercial": 1000, "home": 4931 },
+    { "name": "Reinstatements", "all": 8649, "ma-personal": 2535, "ma-comm": 76, "commercial": 1807, "home": 2550 },
+    { "name": "Pending Cancels", "all": 10267, "ma-personal": 2911, "ma-comm": 76, "commercial": 2254, "home": 3096 },
+    { "name": "New Opened Claims", "all": 364, "ma-personal": 223, "ma-comm": 10, "commercial": 75, "home": 31 },
+    { "name": "Closed Claims", "all": 82, "ma-personal": 50, "ma-comm": 3, "commercial": 10, "home": 11 },
+    { "name": "Cancel Pended Policies", "all": 222, "ma-personal": 63, "ma-comm": 4, "commercial": 21, "home": 73 },
+    { "name": "Designated to Non-Renew", "all": 209, "ma-personal": 61, "ma-comm": 1, "commercial": 33, "home": 58 },
+    { "name": "Pended Policies", "all": 376, "ma-personal": 88, "ma-comm": 12, "commercial": 62, "home": 146 }
+  ],
+  "totalTransactions": 176858,
+  "selectedLob": "all"
+}

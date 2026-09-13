@@ -4,11 +4,13 @@ import { cleanup } from '@testing-library/react';
 import { toHaveNoViolations } from 'jest-axe';
 import { server } from '../../tests/mocks/server';
 
-// Pre-existing bug fix, unrelated to the design system change: jest-axe 9.x
-// exports `toHaveNoViolations` from its main entry, not a `jest-axe/matchers`
-// subpath (which doesn't exist in this version) — this import was failing
-// for every test file in the repo, not just ones touched here.
-expect.extend({ toHaveNoViolations });
+// jest-axe's `toHaveNoViolations` export is already a matchers map
+// ({ toHaveNoViolations: fn }), not the matcher function itself — passing it
+// as `{ toHaveNoViolations }` double-wraps it into
+// { toHaveNoViolations: { toHaveNoViolations: fn } }, which vitest's
+// expect.extend then tries to invoke as a function and fails with
+// "expectAssertion.call is not a function". Spread it directly instead.
+expect.extend(toHaveNoViolations);
 
 // MSW: any component test that reaches the network gets the shared handlers
 // from tests/mocks/handlers.ts. `onUnhandledRequest: 'error'` makes an

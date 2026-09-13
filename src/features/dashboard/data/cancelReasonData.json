@@ -1,0 +1,12 @@
+[
+  { "reason": "Internal Cancel Transaction",  "count": 280, "color": "#8b5cf6" },
+  { "reason": "Other",                         "count": 245, "color": "#22c55e" },
+  { "reason": "Duplicate Policy",              "count": 170, "color": "#f59e0b" },
+  { "reason": "Rewritten with Other Company - 2A","count": 200, "color": "#ef4444" },
+  { "reason": "Non Payment of Premium",        "count": 190, "color": "#ec4899" },
+  { "reason": "Underwriting Reasons",          "count": 240, "color": "#3b82f6" },
+  { "reason": "Rewritten with Same Company",       "count": 160, "color": "#10b981" },
+  { "reason": "Vehicle Sold",                  "count": 120, "color": "#f97316" },
+  { "reason": "Plate Returned",                "count": 100, "color": "#6366f1" },
+  { "reason": "Insured Request",               "count": 80,  "color": "#14b8a6" }
+]

@@ -1,0 +1,13 @@
+{
+  "center": 182405,
+  "segments": [
+    { "name": "Home Owners",         "value": 37, "count": 67486, "color": "#7CE7AC" },
+    { "name": "MA Personal Auto",    "value": 24, "count": 43684, "color": "#5E81F4" },
+    { "name": "Personal Auto",       "value": 24, "count": 44607, "color": "#4A66C1" },
+    { "name": "Business Owners",     "value": 8,  "count": 14878, "color": "#F4BE5E" },
+    { "name": "Dwelling Fire",       "value": 3,  "count": 5976,  "color": "#FF808B" },
+    { "name": "Other",               "value": 2,  "count": 4168,  "color": "#374B8E" },
+    { "name": "MA Commercial Auto",  "value": 1,  "count": 803,   "color": "#A86AFF" },
+    { "name": "Commercial Auto",     "value": 1,  "count": 803,   "color": "#FF7BC8" }
+  ]
+}

@@ -1,0 +1,469 @@
+{
+  "totalTasks": 32877,
+  "tabs": [
+    {
+      "key": "all",
+      "label": "All Tasks"
+    },
+    {
+      "key": "my",
+      "label": "My Tasks"
+    }
+  ],
+  "summary": [
+    {
+      "key": "overdue",
+      "label": "Overdue Tasks",
+      "count": 3089,
+      "percent": 9
+    },
+    {
+      "key": "open",
+      "label": "Open Tasks",
+      "count": 543,
+      "percent": 2
+    },
+    {
+      "key": "completed",
+      "label": "Completed Tasks",
+      "count": 29540,
+      "percent": 89
+    },
+    {
+      "key": "referred",
+      "label": "Referred Tasks",
+      "count": 0,
+      "percent": 0
+    }
+  ],
+  "filters": {
+    "companies": [
+      {
+        "co": 20,
+        "busLin": "CL",
+        "name": "Patrons Oxford Commercial Lines"
+      },
+      {
+        "co": 20,
+        "busLin": "PL",
+        "name": "Patrons Oxford Personal Lines"
+      },
+      {
+        "co": 10,
+        "busLin": "CL",
+        "name": "Quincy Mutual Commercial Lines"
+      },
+      {
+        "co": 10,
+        "busLin": "PL",
+        "name": "Quincy Mutual Personal Lines"
+      }
+    ],
+    "users": [
+      {
+        "code": "SM46",
+        "name": "AKKIEA DICKERSON"
+      },
+      {
+        "code": "PP19",
+        "name": "ALLISON GREEN"
+      },
+      {
+        "code": "AU16",
+        "name": "ANDREW GREENE"
+      },
+      {
+        "code": "SM71",
+        "name": "ANDREW NERSESSIAN"
+      },
+      {
+        "code": "AU19",
+        "name": "AU19"
+      },
+      {
+        "code": "AU80",
+        "name": "AU80"
+      },
+      {
+        "code": "PO71",
+        "name": "AUDREY MACHOWSKI"
+      },
+      {
+        "code": "PO22",
+        "name": "BARBARA BRAGDON"
+      },
+      {
+        "code": "PO45",
+        "name": "BETH MORRISON"
+      },
+      {
+        "code": "SM34",
+        "name": "BETHANY FITCH-JOHNSTON"
+      },
+      {
+        "code": "SM31",
+        "name": "BRIAN HAYES"
+      },
+      {
+        "code": "AU15",
+        "name": "CAROLYN FISHER"
+      },
+      {
+        "code": "PP23",
+        "name": "CATE CLARK"
+      },
+      {
+        "code": "PO12",
+        "name": "CHERYLYNN ORCUTT"
+      },
+      {
+        "code": "HO26",
+        "name": "CHRIS HEALY"
+      },
+      {
+        "code": "AG16",
+        "name": "CHRIS ODONNELL"
+      },
+      {
+        "code": "SM97",
+        "name": "COLIN BRIGGS"
+      },
+      {
+        "code": "SM42",
+        "name": "DAVID JOYCE"
+      },
+      {
+        "code": "DB99",
+        "name": "DB99"
+      },
+      {
+        "code": "HO45",
+        "name": "DEBBIE ABRAHAMS-ALVES"
+      },
+      {
+        "code": "PO78",
+        "name": "DEBRA GILLIS"
+      },
+      {
+        "code": "PO24",
+        "name": "DONNA GAUTHIER"
+      },
+      {
+        "code": "SM41",
+        "name": "GEORGE PRETE"
+      },
+      {
+        "code": "PP30",
+        "name": "GERARD BERGERON"
+      },
+      {
+        "code": "HI01",
+        "name": "HI01"
+      },
+      {
+        "code": "HO05",
+        "name": "HO05"
+      },
+      {
+        "code": "HO08",
+        "name": "HO08"
+      },
+      {
+        "code": "HO19",
+        "name": "HO19"
+      },
+      {
+        "code": "HO33",
+        "name": "HO33"
+      },
+      {
+        "code": "HO35",
+        "name": "HO35"
+      },
+      {
+        "code": "HO37",
+        "name": "HO37"
+      },
+      {
+        "code": "HO41",
+        "name": "HO41"
+      },
+      {
+        "code": "HO53",
+        "name": "HO53"
+      },
+      {
+        "code": "HO61",
+        "name": "HO61"
+      },
+      {
+        "code": "HO63",
+        "name": "HO63"
+      },
+      {
+        "code": "HO64",
+        "name": "HO64"
+      },
+      {
+        "code": "HO65",
+        "name": "HO65"
+      },
+      {
+        "code": "HO66",
+        "name": "HO66"
+      },
+      {
+        "code": "HO73",
+        "name": "HO73"
+      },
+      {
+        "code": "HO74",
+        "name": "HO74"
+      },
+      {
+        "code": "HO77",
+        "name": "HO77"
+      },
+      {
+        "code": "HO81",
+        "name": "HO81"
+      },
+      {
+        "code": "IP22",
+        "name": "IP22"
+      },
+      {
+        "code": "IP27",
+        "name": "IP27"
+      },
+      {
+        "code": "HO03",
+        "name": "JACKIE CONNOLLY"
+      },
+      {
+        "code": "PP04",
+        "name": "JACOB SPERBER"
+      },
+      {
+        "code": "SM33",
+        "name": "JASON MAGNANI"
+      },
+      {
+        "code": "HO39",
+        "name": "JENNIFER HEALY"
+      },
+      {
+        "code": "PO20",
+        "name": "JENNIFER THOMPSON"
+      },
+      {
+        "code": "SM45",
+        "name": "JESSICA PRICE"
+      },
+      {
+        "code": "AU18",
+        "name": "JESSICA SPARKS"
+      },
+      {
+        "code": "HO15",
+        "name": "JULIE MILLS"
+      },
+      {
+        "code": "HO67",
+        "name": "JULIET DUVERSAINT"
+      },
+      {
+        "code": "PP02",
+        "name": "JUSTIN ZUKOWSKI"
+      },
+      {
+        "code": "HO54",
+        "name": "KERRY MCGRATH"
+      },
+      {
+        "code": "KM78",
+        "name": "KM78"
+      },
+      {
+        "code": "SM37",
+        "name": "LESLIE DEMERS"
+      },
+      {
+        "code": "PO77",
+        "name": "LINDA MOLER"
+      },
+      {
+        "code": "SM48",
+        "name": "LINDSEY CAMPBELL"
+      },
+      {
+        "code": "SM35",
+        "name": "LOUIS CICERONE"
+      },
+      {
+        "code": "HO18",
+        "name": "MARGI MAHONY"
+      },
+      {
+        "code": "HO44",
+        "name": "MARIO RAMOS"
+      },
+      {
+        "code": "SM18",
+        "name": "MARK SULLIVAN"
+      },
+      {
+        "code": "SM11",
+        "name": "MEGHAN LAVERY"
+      },
+      {
+        "code": "SM38",
+        "name": "MICHAEL WHITE"
+      },
+      {
+        "code": "PP14",
+        "name": "MILLIE MACDONALD"
+      },
+      {
+        "code": "HO12",
+        "name": "MONICA CUNHA"
+      },
+      {
+        "code": "HO75",
+        "name": "NANCY HICKEY"
+      },
+      {
+        "code": "HO23",
+        "name": "PETER KELLY"
+      },
+      {
+        "code": "PL00",
+        "name": "PL00"
+      },
+      {
+        "code": "PL01",
+        "name": "PL01"
+      },
+      {
+        "code": "PL03",
+        "name": "PL03"
+      },
+      {
+        "code": "PL06",
+        "name": "PL06"
+      },
+      {
+        "code": "PL08",
+        "name": "PL08"
+      },
+      {
+        "code": "PL11",
+        "name": "PL11"
+      },
+      {
+        "code": "PL12",
+        "name": "PL12"
+      },
+      {
+        "code": "PL14",
+        "name": "PL14"
+      },
+      {
+        "code": "PL15",
+        "name": "PL15"
+      },
+      {
+        "code": "PL18",
+        "name": "PL18"
+      },
+      {
+        "code": "PO28",
+        "name": "PO28"
+      },
+      {
+        "code": "PO31",
+        "name": "PO31"
+      },
+      {
+        "code": "PO54",
+        "name": "PO54"
+      },
+      {
+        "code": "PP25",
+        "name": "PP25"
+      },
+      {
+        "code": "PP27",
+        "name": "PP27"
+      },
+      {
+        "code": "PP36",
+        "name": "PP36"
+      },
+      {
+        "code": "PP48",
+        "name": "PP48"
+      },
+      {
+        "code": "PO23",
+        "name": "RHONDA VOLKERNICK"
+      },
+      {
+        "code": "SM24",
+        "name": "RITA LINDSKOG"
+      },
+      {
+        "code": "PO82",
+        "name": "SARAH QUEZADA"
+      },
+      {
+        "code": "SM43",
+        "name": "SEVDALINA LAMBROU"
+      },
+      {
+        "code": "HO68",
+        "name": "SHAWNA FERULLO"
+      },
+      {
+        "code": "SM49",
+        "name": "SM49"
+      },
+      {
+        "code": "SM50",
+        "name": "SM50"
+      },
+      {
+        "code": "SM55",
+        "name": "SM55"
+      },
+      {
+        "code": "PO52",
+        "name": "STEPHANIE REED"
+      },
+      {
+        "code": "PO58",
+        "name": "STEPHEN MONTECALVO"
+      },
+      {
+        "code": "PO60",
+        "name": "STEVE LYCETTE"
+      },
+      {
+        "code": "AU04",
+        "name": "SUSAN MAROBELLA"
+      },
+      {
+        "code": "PO30",
+        "name": "TENA KELSEN"
+      },
+      {
+        "code": "SM44",
+        "name": "TIMOTHY DENNEHEY"
+      },
+      {
+        "code": "SM39",
+        "name": "VICTOR SANCHEZ"
+      }
+    ]
+  }
+}

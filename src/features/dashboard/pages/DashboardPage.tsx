@@ -1,62 +1,43 @@
-import { useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '@/redux/hooks';
-import { loadDashboardSummary } from '../stores/dashboardSlice';
-import { PremiumTrendChart } from '../components/PremiumTrendChart';
-import { formatCurrency } from '@/utils/formatters';
+import { LobFilterBar } from '../components/LobFilterBar';
+import { KPISection } from '../components/KPISection';
+import { TotalPoliciesChart } from '../components/TotalPoliciesChart';
+import { LossRatioChart } from '../components/LossRatioChart';
+import { WrittenPremiumByLobChart } from '../components/WrittenPremiumByLobChart';
+import { PolicyAnalysisChart } from '../components/PolicyAnalysisChart';
+import { CancelReasonChart } from '../components/CancelReasonChart';
+import { AgencyExperienceChart } from '../components/AgencyExperienceChart';
+import { TaskManagerChart } from '../components/TaskManagerChart';
 
 /**
- * Route-level page: composes feature state + presentational components.
- * No raw Axios/fetch here — data comes through the Redux slice/service.
+ * Route-level page: composes the LOB filter, KPI summary, and every
+ * dashboard chart. All chart data is static (bundled fixtures) — see each
+ * chart's file for why (no backend endpoint exists yet for this dashboard's
+ * data; TaskManagerChart specifically notes the tasks.json size problem).
  */
 export default function DashboardPage() {
-  const dispatch = useAppDispatch();
-  const { data, status, error } = useAppSelector((state) => state.dashboard);
-
-  useEffect(() => {
-    if (status === 'idle') {
-      void dispatch(loadDashboardSummary());
-    }
-  }, [status, dispatch]);
-
-  if (status === 'loading' || status === 'idle') {
-    return <p className="text-small text-ink-secondary">Loading dashboard…</p>;
-  }
-
-  if (status === 'failed') {
-    return (
-      <p role="alert" className="text-small text-ink-error">
-        Couldn&apos;t load the dashboard: {error}
-      </p>
-    );
-  }
-
-  if (!data) {
-    return <p className="text-small text-ink-secondary">No dashboard data yet.</p>;
-  }
-
-  const cards = [
-    { label: 'Open quotes', value: data.openQuotes },
-    { label: 'Active policies', value: data.activePolicies },
-    { label: 'Pending renewals', value: data.pendingRenewals },
-    { label: 'Premium written', value: formatCurrency(data.premiumWrittenCents) },
-  ];
-
   return (
-    <div>
-      <h1 className="mb-6 text-heading-2 font-semibold">Dashboard</h1>
+    <div className="space-y-4 2xl:space-y-5">
+      <h1 className="sr-only">Dashboard</h1>
 
-      <dl className="mb-8 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {cards.map((card) => (
-          <div key={card.label} className="rounded-card border border-line-decorative bg-white p-4">
-            <dt className="text-small text-ink-secondary">{card.label}</dt>
-            <dd className="mt-1 text-heading-3 font-semibold">{card.value}</dd>
-          </div>
-        ))}
-      </dl>
+      <LobFilterBar />
+      <KPISection />
 
-      <section className="max-w-3xl rounded-card border border-line-decorative bg-white p-4">
-        <PremiumTrendChart data={data.premiumTrend} />
-      </section>
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:gap-5">
+        <TotalPoliciesChart />
+        <LossRatioChart />
+      </div>
+
+      <WrittenPremiumByLobChart />
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:gap-5">
+        <PolicyAnalysisChart />
+        <CancelReasonChart />
+      </div>
+
+      <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 2xl:gap-5">
+        <AgencyExperienceChart />
+        <TaskManagerChart />
+      </div>
     </div>
   );
 }

@@ -1,0 +1,75 @@
+{
+  "agentName": "All Agents (GALL)",
+  "state": "All States",
+  "totalPremium": "$150.3M",
+  "totalLossRatio": "53%",
+  "score": "High",
+  "note": "2026 is partial year data (as of May 2026)  ·  Other P/L = Mobile Home + Inland Marine + Snowmobile  ·  Other C/L = Bus. Auto + Comm Fire + CommPkg",
+  "years": [
+    {
+      "year": "2022",
+      "homeowner":  90785000,
+      "maAutoPL":   75051000,
+      "autoPL":     37836000,
+      "otherPL":      768000,
+      "busOwner":   68053000,
+      "maAutoCL":    3799000,
+      "otherCL":     4901000,
+      "plLossRatio": 55,
+      "clLossRatio": 51,
+      "lossRatio":   54
+    },
+    {
+      "year": "2023",
+      "homeowner": 105036000,
+      "maAutoPL":   84880000,
+      "autoPL":     42954000,
+      "otherPL":      822000,
+      "busOwner":   81489000,
+      "maAutoCL":    3695000,
+      "otherCL":     4753000,
+      "plLossRatio": 60,
+      "clLossRatio": 52,
+      "lossRatio":   58
+    },
+    {
+      "year": "2024",
+      "homeowner": 122610000,
+      "maAutoPL":  104267000,
+      "autoPL":     49873000,
+      "otherPL":      905000,
+      "busOwner":   96550000,
+      "maAutoCL":    3937000,
+      "otherCL":     5196000,
+      "plLossRatio": 59,
+      "clLossRatio": 42,
+      "lossRatio":   54
+    },
+    {
+      "year": "2025",
+      "homeowner": 128181000,
+      "maAutoPL":  100464000,
+      "autoPL":     49460000,
+      "otherPL":      944000,
+      "busOwner":  105243000,
+      "maAutoCL":    3935000,
+      "otherCL":     5272000,
+      "plLossRatio": 49,
+      "clLossRatio": 53,
+      "lossRatio":   50
+    },
+    {
+      "year": "2026",
+      "homeowner":  44824000,
+      "maAutoPL":   40411000,
+      "autoPL":     18134000,
+      "otherPL":      283000,
+      "busOwner":   43047000,
+      "maAutoCL":    1625000,
+      "otherCL":     1947000,
+      "plLossRatio": 53,
+      "clLossRatio": 52,
+      "lossRatio":   53
+    }
+  ]
+}

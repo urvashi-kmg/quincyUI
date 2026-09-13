@@ -86,6 +86,7 @@ function _clearSession(message?: string): void {
 const AUTH_URL_FRAGMENTS = [
   'registerandassignrole',
   '/auth/refresh',
+  '/auth/login',
   'internalautologin',
   'authorize-token',
 ];
@@ -93,7 +94,18 @@ const AUTH_URL_FRAGMENTS = [
 function isAuthEndpoint(url: string | undefined): boolean {
   if (!url) return false;
   const lower = url.toLowerCase();
-  return AUTH_URL_FRAGMENTS.some((fragment) => lower.includes(fragment));
+  if (AUTH_URL_FRAGMENTS.some((fragment) => lower.includes(fragment))) return true;
+
+  // autoLoginUrl is a fully separate, arbitrarily-shaped absolute URL from
+  // config.json (not a fixed path fragment on apiBaseUrl), so it needs an
+  // exact-match check instead. getConfig() throws until loadConfig()
+  // resolves (e.g. in tests) — treat that as "not the auto-login endpoint".
+  try {
+    const { autoLoginUrl } = getConfig();
+    return Boolean(autoLoginUrl) && url === autoLoginUrl;
+  } catch {
+    return false;
+  }
 }
 
 function generateUuid(): string {

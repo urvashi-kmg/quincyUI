@@ -1,0 +1,86 @@
+[
+  {
+    "lob": "Dwelling Fire",
+    "current": 3420923,
+    "prior": 3255159,
+    "change": 0.051
+  },
+  {
+    "lob": "Home Owners",
+    "current": 8756432,
+    "prior": 8432187,
+    "change": 0.0385
+  },
+  {
+    "lob": "Mobile Home",
+    "current": 2145678,
+    "prior": 2098765,
+    "change": 0.0223
+  },
+  {
+    "lob": "MA Auto Ced",
+    "current": 5432109,
+    "prior": 5287654,
+    "change": 0.0273
+  },
+  {
+    "lob": "MA AutoVol",
+    "current": 12876543,
+    "prior": 12654321,
+    "change": 0.0176
+  },
+  {
+    "lob": "Personal Auto",
+    "current": 15234567,
+    "prior": 14987654,
+    "change": 0.0165
+  },
+  {
+    "lob": "Inland Marine",
+    "current": 4567890,
+    "prior": 4432109,
+    "change": 0.0306
+  },
+  {
+    "lob": "Snowmobile",
+    "current": 1234567,
+    "prior": 1456789,
+    "change": -0.1527
+  },
+  {
+    "lob": "Business Owners",
+    "current": 9876543,
+    "prior": 9654321,
+    "change": 0.023
+  },
+  {
+    "lob": "Business Auto",
+    "current": 18765432,
+    "prior": 18432109,
+    "change": 0.0181
+  },
+  {
+    "lob": "Commercial Fire",
+    "current": 7654321,
+    "prior": 7432109,
+    "change": 0.0299
+  },
+  {
+    "lob": "Commercial Package",
+    "current": 43210987,
+    "prior": 43654321,
+    "change": -0.0101
+  },
+  {
+    "lob": "MA Commercial Auto",
+    "current": 38765432,
+    "prior": 37654321,
+    "change": 0.0295
+  },
+  {
+    "lob": "Commercial Auto",
+    "current": 12345678,
+    "prior": 12087654,
+    "change": 0.0213
+  }
+]

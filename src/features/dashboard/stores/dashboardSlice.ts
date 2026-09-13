@@ -1,49 +1,46 @@
-import { createAsyncThunk, createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { AsyncState } from '@/types';
-import { fetchDashboardSummary, type DashboardSummary } from '../services/dashboardService';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
+import type { RootState } from '@/redux/store';
+import type { LobId } from '../lobConfig';
 
-type DashboardState = AsyncState<DashboardSummary>;
+export type DashboardPeriod = 'Monthly' | 'Quarterly' | 'Yearly';
+
+interface DashboardState {
+  period: DashboardPeriod;
+  lob: LobId;
+  cfgOpen: boolean;
+  selectedLOB: string | null;
+}
 
 const initialState: DashboardState = {
-  data: null,
-  status: 'idle',
-  error: null,
+  period: 'Monthly',
+  lob: 'all',
+  cfgOpen: false,
+  selectedLOB: null,
 };
-
-export const loadDashboardSummary = createAsyncThunk(
-  'dashboard/loadSummary',
-  async () => fetchDashboardSummary(),
-);
 
 const dashboardSlice = createSlice({
   name: 'dashboard',
   initialState,
   reducers: {
-    reset(state) {
-      state.data = null;
-      state.status = 'idle';
-      state.error = null;
+    setPeriod(state, action: PayloadAction<DashboardPeriod>) {
+      state.period = action.payload;
     },
-  },
-  extraReducers: (builder) => {
-    builder
-      .addCase(loadDashboardSummary.pending, (state) => {
-        state.status = 'loading';
-        state.error = null;
-      })
-      .addCase(
-        loadDashboardSummary.fulfilled,
-        (state, action: PayloadAction<DashboardSummary>) => {
-          state.status = 'succeeded';
-          state.data = action.payload;
-        },
-      )
-      .addCase(loadDashboardSummary.rejected, (state, action) => {
-        state.status = 'failed';
-        state.error = action.error.message ?? 'Failed to load dashboard summary';
-      });
+    setLob(state, action: PayloadAction<LobId>) {
+      state.lob = action.payload;
+    },
+    setCfgOpen(state, action: PayloadAction<boolean>) {
+      state.cfgOpen = action.payload;
+    },
+    setSelectedLOB(state, action: PayloadAction<string | null>) {
+      state.selectedLOB = action.payload;
+    },
   },
 });
 
-export const { reset: resetDashboard } = dashboardSlice.actions;
+export const { setPeriod, setLob, setCfgOpen, setSelectedLOB } = dashboardSlice.actions;
 export default dashboardSlice.reducer;
+
+export const selectDashboardPeriod = (state: RootState) => state.dashboard.period;
+export const selectDashboardLob = (state: RootState) => state.dashboard.lob;
+export const selectDashboardCfgOpen = (state: RootState) => state.dashboard.cfgOpen;
+export const selectDashboardSelectedLOB = (state: RootState) => state.dashboard.selectedLOB;

@@ -1,0 +1,13 @@
+[
+  { "month": "Dwelling Fire",      "ratio": 51, "paidExpenses": 1674294,  "reserve0526": 2173030,  "reserve1225": 1943269,  "incurred": 1904055  },
+  { "month": "Home Owners",        "ratio": 52, "paidExpenses": 27109636, "reserve0526": 20686633, "reserve1225": 20127742, "incurred": 27668527 },
+  { "month": "Mobilehome",         "ratio": 10, "paidExpenses": 52610,    "reserve0526": 17689,    "reserve1225": 34830,    "incurred": 35469    },
+  { "month": "MA Auto Assigned",   "ratio": 75, "paidExpenses": 1302237,  "reserve0526": 1238163,  "reserve1225": 1448733,  "incurred": 1091667  },
+  { "month": "MA Personal Auto",   "ratio": 50, "paidExpenses": 21115773, "reserve0526": 20873268, "reserve1225": 22331340, "incurred": 19657701 },
+  { "month": "Personal Auto",      "ratio": 60, "paidExpenses": 13048882, "reserve0526": 17123501, "reserve1225": 18242081, "incurred": 11930302 },
+  { "month": "Inland Marine",      "ratio": 66, "paidExpenses": 2294,     "reserve0526": 20776,    "reserve1225": 0,        "incurred": 23071    },
+  { "month": "Business Owners",    "ratio": 52, "paidExpenses": 21304084, "reserve0526": 43065784, "reserve1225": 41396389, "incurred": 22973479 },
+  { "month": "Business Auto",      "ratio": 61, "paidExpenses": 1282025,  "reserve0526": 1033029,  "reserve1225": 1653172,  "incurred": 661882   },
+  { "month": "Commercial Package", "ratio": 19, "paidExpenses": 185515,   "reserve0526": 480124,   "reserve1225": 483473,   "incurred": 182166   },
+  { "month": "MA Commercial Auto", "ratio": 54, "paidExpenses": 785367,   "reserve0526": 1067544,  "reserve1225": 960842,   "incurred": 892069   }
+]

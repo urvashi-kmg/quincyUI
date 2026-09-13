@@ -1,58 +1,53 @@
 import { describe, expect, it } from 'vitest';
-import reducer, { loadDashboardSummary, resetDashboard } from './dashboardSlice';
-import type { DashboardSummary } from '../services/dashboardService';
-
-const summary: DashboardSummary = {
-  openQuotes: 4,
-  activePolicies: 120,
-  pendingRenewals: 6,
-  premiumWrittenCents: 1_250_000,
-  premiumTrend: [{ month: '2026-01', premiumCents: 1_250_000, policyCount: 120 }],
-};
+import reducer, {
+  setPeriod,
+  setLob,
+  setCfgOpen,
+  setSelectedLOB,
+  selectDashboardPeriod,
+  selectDashboardLob,
+  selectDashboardCfgOpen,
+  selectDashboardSelectedLOB,
+} from './dashboardSlice';
 
 describe('dashboardSlice', () => {
-  it('starts idle', () => {
+  it('starts with the default filter state', () => {
     const state = reducer(undefined, { type: '@@INIT' });
-    expect(state).toEqual({ data: null, status: 'idle', error: null });
+    expect(state).toEqual({ period: 'Monthly', lob: 'all', cfgOpen: false, selectedLOB: null });
   });
 
-  it('sets status to loading on pending', () => {
-    const state = reducer(undefined, loadDashboardSummary.pending('req1', undefined));
-    expect(state.status).toBe('loading');
-    expect(state.error).toBeNull();
+  it('sets the period', () => {
+    const state = reducer(undefined, setPeriod('Quarterly'));
+    expect(state.period).toBe('Quarterly');
   });
 
-  it('stores the summary on fulfilled', () => {
-    const state = reducer(undefined, loadDashboardSummary.fulfilled(summary, 'req1', undefined));
-    expect(state.status).toBe('succeeded');
-    expect(state.data).toEqual(summary);
+  it('sets the LOB filter', () => {
+    const state = reducer(undefined, setLob('home'));
+    expect(state.lob).toBe('home');
   });
 
-  it('captures an error message on rejected', () => {
-    const pendingState = reducer(undefined, loadDashboardSummary.pending('req1', undefined));
-    const state = reducer(
-      pendingState,
-      loadDashboardSummary.rejected(new Error('network down'), 'req1', undefined),
-    );
-    expect(state.status).toBe('failed');
-    expect(state.error).toBe('network down');
+  it('toggles the config panel', () => {
+    const state = reducer(undefined, setCfgOpen(true));
+    expect(state.cfgOpen).toBe(true);
   });
 
-  it('clears a previous error when a new request starts', () => {
-    const failed = reducer(
-      undefined,
-      loadDashboardSummary.rejected(new Error('network down'), 'req1', undefined),
-    );
-    const reloading = reducer(failed, loadDashboardSummary.pending('req2', undefined));
-    expect(reloading.error).toBeNull();
-  });
+  it('sets and clears the drill-down selection', () => {
+    const selected = reducer(undefined, setSelectedLOB('Home Owners'));
+    expect(selected.selectedLOB).toBe('Home Owners');
 
-  it('resets to idle', () => {
-    const loaded = reducer(undefined, loadDashboardSummary.fulfilled(summary, 'req1', undefined));
-    expect(reducer(loaded, resetDashboard())).toEqual({
-      data: null,
-      status: 'idle',
-      error: null,
-    });
+    const cleared = reducer(selected, setSelectedLOB(null));
+    expect(cleared.selectedLOB).toBeNull();
+  });
+});
+
+describe('dashboard selectors', () => {
+  it('read each field off state.dashboard', () => {
+    const dashboard = { period: 'Yearly' as const, lob: 'business' as const, cfgOpen: true, selectedLOB: 'x' };
+    const state = { dashboard } as never;
+
+    expect(selectDashboardPeriod(state)).toBe('Yearly');
+    expect(selectDashboardLob(state)).toBe('business');
+    expect(selectDashboardCfgOpen(state)).toBe(true);
+    expect(selectDashboardSelectedLOB(state)).toBe('x');
   });
 });
